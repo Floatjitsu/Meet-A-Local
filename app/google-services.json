@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1056848752869",
+    "firebase_url": "https://meet-a-local-88916.firebaseio.com",
+    "project_id": "meet-a-local-88916",
+    "storage_bucket": "meet-a-local-88916.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056848752869:android:99e5e218d1b4792d",
+        "android_client_info": {
+          "package_name": "com.main.meetalocal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056848752869-tgqi4les785t8kdh5oq9hp50cvarr0cb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.main.meetalocal",
+            "certificate_hash": "c49291fe88da85502dd85bc2a80db209212970b5"
+          }
+        },
+        {
+          "client_id": "1056848752869-0i83asvs51dvr1qsa2qph056gmndkmrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP-4AU9UBImsI5G4sEbg-frBKLIv2oGWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056848752869-0i83asvs51dvr1qsa2qph056gmndkmrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
