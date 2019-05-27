@@ -1,12 +1,17 @@
 <resources>
     <string name="app_name">Meet A Local</string>
 
-    <!-- Login Activity -->
+    <!-- LoginActivity Activity -->
     <string name="login_email_address">E-Mail</string>
     <string name="login_password">Password</string>
     <string name="login">Login</string>
 
     <!-- Sign Up Activity -->
     <string name="sign_up">Sign Up</string>
+    <string name="sign_up_first_name">First Name</string>
+    <string name="sign_up_surname">Surname</string>
+    <string name="sign_up_home_country">Home Country</string>
+    <string name="sign_up_home_town">Home Town</string>
+    <string name="sign_up_confirm_password">Confirm Password</string>
 
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
+    tools:context=".LoginActivity"
     android:background="@color/colorPrimary"
     android:paddingStart="30dp"
     android:paddingEnd="30dp">
@@ -67,7 +67,7 @@
             android:layout_weight="1"
             android:text="@string/login"
             android:layout_marginEnd="8dp"
-            android:background="@color/colorSecondaryDark"
+            android:background="@drawable/button"
             android:textColor="@color/textColor"
             android:fontFamily="@font/nunito_bold"
             style="?android:attr/buttonBarButtonStyle" />
@@ -77,9 +77,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/sign_up"
-            android:background="@color/colorSecondaryDark"
+            android:background="@drawable/button"
             android:textColor="@color/textColor"
             android:fontFamily="@font/nunito_bold"
+            android:onClick="onSignUp"
             style="?android:attr/buttonBarButtonStyle" />
 
     </LinearLayout>

@@ -6,8 +6,8 @@
     <color name="colorAccent">#b2fab4</color>
 
     <color name="colorSecondary">#fafafa</color>
-    <color name="colorSecondaryDark">#ffffff</color>
-    <color name="colorSecondaryLight">#c7c7c7</color>
+    <color name="colorSecondaryDark">#c7c7c7</color>
+    <color name="colorSecondaryLight">#ffffff</color>
 
     <color name="textColor">#000000</color>
     <color name="textColorLight">#ffffff</color>
