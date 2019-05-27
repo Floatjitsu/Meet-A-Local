@@ -2,10 +2,8 @@ package com.main.meetalocal;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,10 +16,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.main.meetalocal.database.Authentication;
+import com.main.meetalocal.database.Firebase;
+import com.main.meetalocal.database.User;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText mEmail, mPassword, mFirstName;
+    EditText mEmail, mPassword, mFirstName, mSurname, mCountry, mHomeTown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,9 @@ public class SignUpActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.edit_text_email_sign_up);
         mPassword = findViewById(R.id.edit_text_password_sign_up);
         mFirstName = findViewById(R.id.edit_text_first_name);
+        mCountry = findViewById(R.id.edit_text_home_country);
+        mHomeTown = findViewById(R.id.edit_text_home_town);
+        mSurname = findViewById(R.id.edit_text_surname);
     }
 
     public void onSignUp(View view) {
@@ -41,6 +44,8 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             new Authentication().setCurrentUserDisplayName(mFirstName.getText().toString());
+                            new Firebase().addUserToFirebase(buildUser());
+                            startActivity(new Intent(context, MainActivity.class));
                         }
                     }
                 })
@@ -52,5 +57,16 @@ public class SignUpActivity extends AppCompatActivity {
                         Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+
+    //Build User from UI Elements for Database
+    private User buildUser() {
+        String email = mEmail.getText().toString();
+        String firstName = mFirstName.getText().toString();
+        String surname = mSurname.getText().toString();
+        String country = mCountry.getText().toString();
+        String homeTown = mHomeTown.getText().toString();
+
+        return new User(firstName, surname, country, homeTown, email);
     }
 }
