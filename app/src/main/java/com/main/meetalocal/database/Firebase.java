@@ -10,7 +10,6 @@ public class Firebase {
     public Firebase() { database = FirebaseFirestore.getInstance(); }
 
     public void addUserToFirebase(User user) {
-        user.setuId(new Authentication().getCurrentUserUid());
-        database.collection(USER_PATH).add(user);
+        database.collection(USER_PATH).document(new Authentication().getCurrentUserUid()).set(user);
     }
 }
