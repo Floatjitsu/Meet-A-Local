@@ -22,5 +22,9 @@
     <string name="navigation_drawer_header_names">First Name Surname</string>
     <string name="navigation_drawer_header_email">E-Mail Address</string>
 
+    <!-- Empty Bucket List -->
+    <string name="empty_bucket_list">Empty Bucket List</string>
+    <string name="empty_bucket_list_message">Looks like your Bucket List is empty</string>
+
 
 </resources>
