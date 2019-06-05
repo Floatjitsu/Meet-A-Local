@@ -22,6 +22,7 @@ import com.main.meetalocal.viewmodel.ViewModelUser;
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
+    NavigationView mNavigationView;
     Toolbar mToolbar;
     TextView mUserEmail, mUserFirstName;
 
@@ -31,12 +32,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mDrawerLayout = findViewById(R.id.drawer_layout_main_activity);
+        mNavigationView = findViewById(R.id.navigation_view_main_activity);
 
         mUserEmail = findViewById(R.id.test_user_email);
         mUserFirstName = findViewById(R.id.test_user_first_name);
         mToolbar = findViewById(R.id.toolbar_main_activity);
 
         setUpToolbar();
+
+        mNavigationView.getMenu().getItem(0).setChecked(true);
+
 
         /*
 

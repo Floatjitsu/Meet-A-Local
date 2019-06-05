@@ -18,5 +18,9 @@
     <string name="navigation_drawer_menu_home">Home</string>
     <string name="navigation_drawer_logout">Logout</string>
 
+    <!-- Navigation Drawer Header Placeholders -->
+    <string name="navigation_drawer_header_names">First Name Surname</string>
+    <string name="navigation_drawer_header_email">E-Mail Address</string>
+
 
 </resources>
