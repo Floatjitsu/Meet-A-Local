@@ -1,4 +1,4 @@
-package com.main.meetalocal;
+package com.main.meetalocal.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.main.meetalocal.R;
 import com.main.meetalocal.database.Authentication;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Authentication auth;
+    Authentication mAuth;
     EditText mEmail, mPassword;
 
     @Override
@@ -29,9 +30,9 @@ public class LoginActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.edit_text_email);
         mPassword = findViewById(R.id.edit_text_password);
 
-        auth = new Authentication();
+        mAuth = new Authentication();
 
-        if(auth.getCurrentUser() != null) {
+        if(mAuth.getCurrentUser() != null) {
             startActivity(new Intent(this, MainActivity.class));
         }
     }
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void onLogin(View view) {
         if(isValid()) {
-            auth.logInUser(mEmail.getText().toString(), mPassword.getText().toString(), onLoginComplete());
+            mAuth.logInUser(mEmail.getText().toString(), mPassword.getText().toString(), onLoginComplete());
         }
     }
 
