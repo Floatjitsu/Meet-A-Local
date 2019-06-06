@@ -18,7 +18,7 @@ public class Authentication {
         return currentUser;
     }
 
-    String getCurrentUserUid() {
+    public String getCurrentUserUid() {
         return currentUser.getUid();
     }
 

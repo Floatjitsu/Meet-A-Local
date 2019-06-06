@@ -16,7 +16,7 @@ public class FirestoreQueryLiveData extends LiveData<Task<DocumentSnapshot>> {
     private final DocumentReference reference;
     private final MyValueEventListener listener = new MyValueEventListener();
 
-    public FirestoreQueryLiveData(DocumentReference reference) {
+    FirestoreQueryLiveData(DocumentReference reference) {
         this.reference = reference;
     }
 

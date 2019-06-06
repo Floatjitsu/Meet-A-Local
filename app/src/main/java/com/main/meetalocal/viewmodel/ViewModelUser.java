@@ -7,15 +7,19 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.main.meetalocal.database.Authentication;
 
 public class ViewModelUser extends ViewModel {
 
-    private static final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private final FirestoreQueryLiveData liveData = new FirestoreQueryLiveData(database.collection("users")
-            .document("K9KLDP7FvXRBJUGyPJAH"));
+    private final String FIRESTORE_PATH_USER = "users";
+    private final FirebaseFirestore DATABASE = FirebaseFirestore.getInstance();
+    private final FirestoreQueryLiveData LIVE_DATA = new FirestoreQueryLiveData(DATABASE.collection(FIRESTORE_PATH_USER)
+            .document(new Authentication().getCurrentUserUid()));
 
     @NonNull
     public LiveData<Task<DocumentSnapshot>> getdataSnapshotLiveData(){
-        return liveData;
+        return LIVE_DATA;
     }
+
+
 }
