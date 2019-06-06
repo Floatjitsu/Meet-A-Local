@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,13 +19,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.main.meetalocal.R;
+import com.main.meetalocal.dialog.LogoutDialog;
 import com.main.meetalocal.viewmodel.ViewModelUser;
-
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     final int HEADER_INDEX = 0;
 
@@ -45,7 +45,17 @@ public class MainActivity extends AppCompatActivity {
         setUpNavigationHeader();
 
         mNavigationView.getMenu().getItem(0).setChecked(true);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        if(menuItem.getItemId() == R.id.menu_item_logout) {
+            new LogoutDialog().show(getSupportFragmentManager(), "Logout Dialog");
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -91,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Set up the Action Toolbar and set the menu icon as home indicator (left sided)
+     */
     private void setUpToolbar() {
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();

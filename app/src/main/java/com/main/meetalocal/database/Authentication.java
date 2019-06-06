@@ -18,6 +18,10 @@ public class Authentication {
         return currentUser;
     }
 
+    public void signOutCurrentUser() {
+        FirebaseAuth.getInstance().signOut();
+    }
+
     public String getCurrentUserUid() {
         return currentUser.getUid();
     }

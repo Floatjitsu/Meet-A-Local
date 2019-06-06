@@ -26,5 +26,10 @@
     <string name="empty_bucket_list">Empty Bucket List</string>
     <string name="empty_bucket_list_message">Looks like your Bucket List is empty</string>
 
+    <!-- Logout Dialog -->
+    <string name="logout_dialog_question">Do you want to logout?</string>
+    <string name="logout_dialog_logout">Logout</string>
+    <string name="logout_dialog_stay">Stay</string>
+
 
 </resources>

@@ -12,4 +12,6 @@
     <color name="textColor">#000000</color>
     <color name="textColorLight">#ffffff</color>
 
+    <color name="logout_event_positive_button_color">#c62828</color>
+
 </resources>
