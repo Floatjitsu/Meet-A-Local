@@ -21,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.main.meetalocal.R;
 import com.main.meetalocal.dialog.LogoutDialog;
+import com.main.meetalocal.fragment.BucketListFragment;
 import com.main.meetalocal.fragment.HomeFragment;
 import com.main.meetalocal.viewmodel.ViewModelUser;
 
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     Toolbar mToolbar;
-    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,23 +45,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToolbar = findViewById(R.id.toolbar_main_activity);
 
         //The HomeFragment is the first fragment a user sees when starting the app
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_placeholder_main_activity, new HomeFragment());
-        fragmentTransaction.commit();
-
-        setUpToolbar();
-        setUpNavigationHeader();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_placeholder_main_activity, new HomeFragment())
+                .commit();
 
         mNavigationView.getMenu().getItem(0).setChecked(true);
         mNavigationView.setNavigationItemSelectedListener(this);
 
+        setUpToolbar();
+        setUpNavigationHeader();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        if(menuItem.getItemId() == R.id.menu_item_logout) {
-            new LogoutDialog().show(getSupportFragmentManager(), "Logout Dialog");
-            return true;
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        switch (menuItem.getItemId()) {
+            case R.id.menu_item_home:
+                fragmentTransaction.replace(R.id.fragment_placeholder_main_activity, new HomeFragment());
+                fragmentTransaction.commit();
+                return true;
+            case R.id.menu_item_bucket_list:
+                fragmentTransaction.replace(R.id.fragment_placeholder_main_activity, new BucketListFragment());
+                fragmentTransaction.commit();
+                return true;
+            case R.id.menu_item_logout:
+                new LogoutDialog().show(getSupportFragmentManager(), "Logout Dialog");
+                return true;
         }
         return false;
     }
