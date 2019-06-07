@@ -13,8 +13,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/empty_bucket_list_message"
         android:drawableTop="@drawable/image_empty_bucket"
+        android:text="@string/empty_bucket_list_message"
         android:drawablePadding="8dp"
         android:fontFamily="@font/nunito_bold"/>
 
