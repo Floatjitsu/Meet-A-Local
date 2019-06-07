@@ -1,6 +1,7 @@
 package com.main.meetalocal.activity;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mDrawerLayout.closeDrawers();
         switch (menuItem.getItemId()) {
             case R.id.menu_item_home:
                 fragmentTransaction.replace(R.id.fragment_placeholder_main_activity, new HomeFragment());
