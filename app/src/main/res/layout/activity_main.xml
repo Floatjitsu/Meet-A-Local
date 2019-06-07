@@ -12,7 +12,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorSecondary"
+        android:background="@color/colorSecondaryLight"
         tools:context=".activity.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
@@ -22,19 +22,15 @@
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/colorPrimary"
             app:title="@string/app_name"/>
-
-        <TextView
-            android:id="@+id/text_empty_bucket_list"
-            android:layout_width="wrap_content"
+        
+        <FrameLayout
+            android:id="@+id/fragment_placeholder_main_activity"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_main_activity"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="@string/empty_bucket_list_message"
-            android:drawableTop="@drawable/image_empty_bucket"
-            android:drawablePadding="8dp"
-            android:fontFamily="@font/nunito_bold"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

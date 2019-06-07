@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.main.meetalocal.R;
 import com.main.meetalocal.dialog.LogoutDialog;
+import com.main.meetalocal.fragment.HomeFragment;
 import com.main.meetalocal.viewmodel.ViewModelUser;
 
 import java.util.Objects;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     Toolbar mToolbar;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout = findViewById(R.id.drawer_layout_main_activity);
         mNavigationView = findViewById(R.id.navigation_view_main_activity);
         mToolbar = findViewById(R.id.toolbar_main_activity);
+
+        //The HomeFragment is the first fragment a user sees when starting the app
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_placeholder_main_activity, new HomeFragment());
+        fragmentTransaction.commit();
 
         setUpToolbar();
         setUpNavigationHeader();
