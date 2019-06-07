@@ -13,11 +13,12 @@ public class ViewModelUser extends ViewModel {
 
     private final String FIRESTORE_PATH_USER = "users";
     private final FirebaseFirestore DATABASE = FirebaseFirestore.getInstance();
-    private final FirestoreQueryLiveData LIVE_DATA = new FirestoreQueryLiveData(DATABASE.collection(FIRESTORE_PATH_USER)
+    private final FirestoreQueryLiveData LIVE_DATA =
+            new FirestoreQueryLiveData(DATABASE.collection(FIRESTORE_PATH_USER)
             .document(new Authentication().getCurrentUserUid()));
 
     @NonNull
-    public LiveData<Task<DocumentSnapshot>> getdataSnapshotLiveData(){
+    public LiveData<Task<DocumentSnapshot>> getDataSnapshotLiveData(){
         return LIVE_DATA;
     }
 

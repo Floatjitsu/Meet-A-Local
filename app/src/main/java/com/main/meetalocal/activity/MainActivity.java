@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void setUserObserver(final TextView userEmail, final TextView userFirstNameSurname) {
         ViewModelUser viewModelUser = ViewModelProviders.of(this).get(ViewModelUser.class);
-        LiveData<Task<DocumentSnapshot>> liveData = viewModelUser.getdataSnapshotLiveData();
+        LiveData<Task<DocumentSnapshot>> liveData = viewModelUser.getDataSnapshotLiveData();
         liveData.observe(this, new Observer<Task<DocumentSnapshot>>() {
             @Override
             public void onChanged(Task<DocumentSnapshot> documentSnapshotTask) {

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group_main_items"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/menu_item_home"
             android:icon="@drawable/ic_home_grey_24dp"
             android:title="@string/navigation_drawer_menu_home"/>
+
+        <item
+            android:id="@+id/menu_item_bucket_list"
+            android:icon="@drawable/ic_bucket_list_grey_24dp"
+            android:title="@string/navigation_drawer_menu_bucket_list"/>
+
+    </group>
+
+    <group
+        android:id="@+id/group_logout_items"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/menu_item_logout"
