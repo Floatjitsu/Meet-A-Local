@@ -1,5 +1,6 @@
 package com.main.meetalocal.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.main.meetalocal.database.Authentication;
 
 public class LoginActivity extends AppCompatActivity {
 
+    Dialog mFullscreenDialog;
     Authentication mAuth;
     EditText mEmail, mPassword;
 
@@ -29,6 +31,9 @@ public class LoginActivity extends AppCompatActivity {
 
         mEmail = findViewById(R.id.edit_text_email);
         mPassword = findViewById(R.id.edit_text_password);
+
+        mFullscreenDialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        mFullscreenDialog.setContentView(R.layout.dialog_full_screen_login);
 
         mAuth = new Authentication();
 
@@ -49,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void onLogin(View view) {
         if(isValid()) {
+            mFullscreenDialog.show();
             mAuth.logInUser(mEmail.getText().toString(), mPassword.getText().toString(), onLoginComplete());
         }
     }
@@ -63,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task task) {
                 if(task.isSuccessful()) {
                     startActivity(new Intent(context, MainActivity.class));
+                    mFullscreenDialog.dismiss();
                 } else {
                     Toast.makeText(context, "We couldn't find a user with the given email and password!", Toast.LENGTH_SHORT).show();
                 }
