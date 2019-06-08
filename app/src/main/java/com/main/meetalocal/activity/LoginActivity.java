@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.main.meetalocal.R;
@@ -60,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /*
-    Listener for the login action
+    OnCompleteListener for the Login action
      */
     private OnCompleteListener<AuthResult> onLoginComplete() {
         final Context context = this;
