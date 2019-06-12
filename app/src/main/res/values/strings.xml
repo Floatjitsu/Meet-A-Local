@@ -32,5 +32,8 @@
     <string name="logout_dialog_logout">Logout</string>
     <string name="logout_dialog_stay">Stay</string>
 
+    <!-- Country Item Placeholders -->
+    <string name="country_item_country_name">Country Name</string>
+    <string name="country_item_check_mark">Check Mark</string>
 
 </resources>

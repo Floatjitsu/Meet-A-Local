@@ -8,18 +8,30 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_country_flag_round"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_weight="0.1"
         android:src="@drawable/image_earth"/>
 
     <TextView
         android:id="@+id/text_country_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="0.70"
         android:layout_marginStart="12dp"
         android:layout_gravity="center_vertical"
-        android:text="@string/app_name"
+        android:text="@string/country_item_country_name"
         android:textSize="20sp"
         android:textColor="@color/textColor"/>
+
+    <ImageView
+        android:id="@+id/image_check_mark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:layout_gravity="end|center_vertical"
+        android:src="@drawable/ic_check_primary_dark_24dp"
+        android:contentDescription="@string/country_item_check_mark"
+        android:visibility="invisible"/>
 
 </LinearLayout>
