@@ -16,13 +16,10 @@
         app:iconifiedByDefault="false"
         android:focusable="true"/>
 
-    <!--
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_edit_bucket_list_activity"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_countries"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorPrimary"/>
-    -->
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/search_view_edit_bucket_list_activity"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

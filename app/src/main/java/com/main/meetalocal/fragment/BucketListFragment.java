@@ -15,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.main.meetalocal.R;
 import com.main.meetalocal.activity.EditBucketListActivity;
 
-public class BucketListFragment extends Fragment implements View.OnClickListener, SearchView.OnQueryTextListener {
+public class BucketListFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
@@ -29,9 +29,6 @@ public class BucketListFragment extends Fragment implements View.OnClickListener
 
         FloatingActionButton editBucketListButton = view.findViewById(R.id.button_edit_bucket_list);
         editBucketListButton.setOnClickListener(this);
-
-        SearchView searchViewCountries = view.findViewById(R.id.search_view_edit_bucket_list_activity);
-        searchViewCountries.setOnQueryTextListener(this);
     }
 
     @Override
@@ -39,15 +36,5 @@ public class BucketListFragment extends Fragment implements View.OnClickListener
         if(v.getId() == R.id.button_edit_bucket_list) {
             startActivity(new Intent(getActivity(), EditBucketListActivity.class));
         }
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
     }
 }
