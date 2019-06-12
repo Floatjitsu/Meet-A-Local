@@ -5,6 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorSecondaryLight">
 
+    <Button
+        android:id="@+id/button_insert_countries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="insert countries"/>
+
     <TextView
         android:id="@+id/text_empty_bucket_list"
         android:layout_width="wrap_content"

@@ -18,4 +18,12 @@ public class CountryModel {
     public String getRoundedFlagPath() {
         return roundedFlagPath;
     }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public void setRoundedFlagPath(String roundedFlagPath) {
+        this.roundedFlagPath = roundedFlagPath;
+    }
 }

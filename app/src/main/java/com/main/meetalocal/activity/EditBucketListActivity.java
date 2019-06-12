@@ -35,6 +35,7 @@ public class EditBucketListActivity extends AppCompatActivity {
 
         mRecyclerViewCountries = findViewById(R.id.recycler_view_countries);
         mCountryList = new ArrayList<>();
+
         setUpRecyclerView();
 
         mSearchView = findViewById(R.id.search_view_edit_bucket_list_activity);
@@ -53,6 +54,9 @@ public class EditBucketListActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    Set up the RecyclerView with every possible country
+     */
     private void setUpRecyclerView() {
         mRecyclerViewCountries.setLayoutManager(new LinearLayoutManager(this));
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -72,5 +76,4 @@ public class EditBucketListActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }
