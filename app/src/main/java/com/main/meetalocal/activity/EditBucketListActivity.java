@@ -38,6 +38,8 @@ public class EditBucketListActivity extends AppCompatActivity {
 
         setUpRecyclerView();
 
+        mEditBucketListAdapter = new EditBucketListAdapter(new ArrayList<CountryModel>(), mContext);
+
         mSearchView = findViewById(R.id.search_view_edit_bucket_list_activity);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -49,7 +51,7 @@ public class EditBucketListActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 mEditBucketListAdapter.filterCountryList(newText);
-                return false;
+                return true;
             }
         });
     }

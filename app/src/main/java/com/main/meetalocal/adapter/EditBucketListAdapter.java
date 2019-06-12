@@ -74,15 +74,26 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
         return countries.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView countryName;
-        ImageView countryFlag;
+        ImageView countryFlag, checkMark;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             countryName = itemView.findViewById(R.id.text_country_name);
             countryFlag = itemView.findViewById(R.id.image_country_flag_round);
+            checkMark = itemView.findViewById(R.id.image_country_check_mark);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(checkMark.getVisibility() == View.INVISIBLE) {
+                checkMark.setVisibility(View.VISIBLE);
+            } else {
+                checkMark.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }
