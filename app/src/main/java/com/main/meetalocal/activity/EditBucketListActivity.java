@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.main.meetalocal.R;
 import com.main.meetalocal.adapter.EditBucketListAdapter;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 public class EditBucketListActivity extends AppCompatActivity {
 
     Context mContext = this;
-    SearchView searchView;
+    SearchView mSearchView;
     RecyclerView mRecyclerViewCountries;
     EditBucketListAdapter mEditBucketListAdapter;
     ArrayList<CountryModel> mCountryList;
@@ -38,8 +37,8 @@ public class EditBucketListActivity extends AppCompatActivity {
         mCountryList = new ArrayList<>();
         setUpRecyclerView();
 
-        searchView = findViewById(R.id.search_view_edit_bucket_list_activity);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchView = findViewById(R.id.search_view_edit_bucket_list_activity);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mEditBucketListAdapter.filterCountryList(query);
