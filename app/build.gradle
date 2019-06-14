@@ -20,6 +20,7 @@ android {
 
 dependencies {
     def lifecycle_version = "2.0.0"
+    def room_version = "2.1.0-alpha01"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
@@ -48,6 +49,10 @@ dependencies {
 
     //Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    //Room components
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     //Firebase implementations
     implementation 'com.google.firebase:firebase-core:16.0.9'
