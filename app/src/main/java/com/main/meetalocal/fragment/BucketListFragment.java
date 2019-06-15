@@ -44,20 +44,16 @@ public class BucketListFragment extends Fragment implements View.OnClickListener
         mRecyclerViewBucketList = view.findViewById(R.id.recycler_view_bucket_list);
         mRecyclerViewBucketList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mBucketListViewModel = ViewModelProviders.of(getActivity()).get(BucketListViewModel.class);
-
-        /*
-        insertCountry("Pakistan");
-        insertCountry("Germany");
-        */
-
-        mBucketListViewModel.getBucketList().observe(getActivity(), new Observer<List<BucketListCountry>>() {
-            @Override
-            public void onChanged(List<BucketListCountry> bucketListCountries) {
-                mBucketListAdapter = new BucketListAdapter(bucketListCountries, getActivity());
-                mRecyclerViewBucketList.setAdapter(mBucketListAdapter);
-            }
-        });
+        if(getActivity() != null) {
+            mBucketListViewModel = ViewModelProviders.of(getActivity()).get(BucketListViewModel.class);
+            mBucketListViewModel.getBucketList().observe(getActivity(), new Observer<List<BucketListCountry>>() {
+                @Override
+                public void onChanged(List<BucketListCountry> bucketListCountries) {
+                    mBucketListAdapter = new BucketListAdapter(bucketListCountries, getActivity());
+                    mRecyclerViewBucketList.setAdapter(mBucketListAdapter);
+                }
+            });
+        }
 
         FloatingActionButton editBucketListButton = view.findViewById(R.id.button_edit_bucket_list);
         editBucketListButton.setOnClickListener(this);
