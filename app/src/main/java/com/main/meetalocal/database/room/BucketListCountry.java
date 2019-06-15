@@ -1,5 +1,6 @@
 package com.main.meetalocal.database.room;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,7 +11,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "user_bucket_list")
 public class BucketListCountry {
 
-    @PrimaryKey
+    @PrimaryKey @NonNull
     private String countryName;
 
     public BucketListCountry(String countryName) {

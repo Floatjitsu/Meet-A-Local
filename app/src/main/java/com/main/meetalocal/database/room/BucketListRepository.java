@@ -1,9 +1,11 @@
 package com.main.meetalocal.database.room;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BucketListRepository {
@@ -20,4 +22,24 @@ public class BucketListRepository {
     public LiveData<List<BucketListCountry>> getBucketList() {
         return bucketList;
     }
+
+    public void insert(BucketListCountry bucketListCountry) {
+        new InsertBucketListCountryAsyncTask(bucketListCountryDao).execute(bucketListCountry);
+    }
+
+    private static class InsertBucketListCountryAsyncTask extends AsyncTask<BucketListCountry, Void, Void> {
+
+        private BucketListCountryDao bucketListCountryDao;
+
+        private InsertBucketListCountryAsyncTask(BucketListCountryDao bucketListCountryDao) {
+            this.bucketListCountryDao = bucketListCountryDao;
+        }
+
+        @Override
+        protected Void doInBackground(BucketListCountry... bucketListCountries) {
+            bucketListCountryDao.insert(bucketListCountries[0]);
+            return null;
+        }
+    }
+
 }

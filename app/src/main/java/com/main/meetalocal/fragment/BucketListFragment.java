@@ -10,12 +10,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.main.meetalocal.R;
 import com.main.meetalocal.activity.EditBucketListActivity;
+import com.main.meetalocal.adapter.BucketListAdapter;
+import com.main.meetalocal.database.room.BucketListCountry;
+import com.main.meetalocal.viewmodel.BucketListViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BucketListFragment extends Fragment implements View.OnClickListener {
+
+    private BucketListViewModel mBucketListViewModel;
+    private RecyclerView mRecyclerViewBucketList;
+    private BucketListAdapter mBucketListAdapter;
 
     @Nullable
     @Override
@@ -27,6 +41,24 @@ public class BucketListFragment extends Fragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mRecyclerViewBucketList = view.findViewById(R.id.recycler_view_bucket_list);
+        mRecyclerViewBucketList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mBucketListViewModel = ViewModelProviders.of(getActivity()).get(BucketListViewModel.class);
+
+        /*
+        insertCountry("Pakistan");
+        insertCountry("Germany");
+        */
+
+        mBucketListViewModel.getBucketList().observe(getActivity(), new Observer<List<BucketListCountry>>() {
+            @Override
+            public void onChanged(List<BucketListCountry> bucketListCountries) {
+                mBucketListAdapter = new BucketListAdapter(bucketListCountries, getActivity());
+                mRecyclerViewBucketList.setAdapter(mBucketListAdapter);
+            }
+        });
+
         FloatingActionButton editBucketListButton = view.findViewById(R.id.button_edit_bucket_list);
         editBucketListButton.setOnClickListener(this);
     }
@@ -36,5 +68,10 @@ public class BucketListFragment extends Fragment implements View.OnClickListener
         if(v.getId() == R.id.button_edit_bucket_list) {
             startActivity(new Intent(getActivity(), EditBucketListActivity.class));
         }
+    }
+
+    private void insertCountry(String countryName) {
+        BucketListCountry bucketListCountry = new BucketListCountry(countryName);
+        mBucketListViewModel.insert(bucketListCountry);
     }
 }

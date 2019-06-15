@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/colorSecondaryLight">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_bucket_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="?attr/actionBarSize"/>
+
+    <!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,7 +24,7 @@
         android:text="@string/empty_bucket_list_message"
         android:drawableTop="@drawable/image_empty_bucket"
         android:drawablePadding="8dp"
-        android:fontFamily="@font/nunito_bold"/>
+        android:fontFamily="@font/nunito_bold"/> -->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_edit_bucket_list"

@@ -10,7 +10,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-@Database(entities = BucketListCountry.class, version = 1)
+@Database(entities = BucketListCountry.class, version = 1, exportSchema = false)
 public abstract class BucketListDatabase extends RoomDatabase {
 
     private static BucketListDatabase instance;
