@@ -17,6 +17,7 @@ import com.google.firebase.storage.StorageReference;
 import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.CountryModel;
+import com.main.meetalocal.database.room.BucketListCountry;
 import com.main.meetalocal.viewmodel.BucketListViewModel;
 
 import java.util.ArrayList;
@@ -105,8 +106,10 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
 
         @Override
         public void onClick(View v) {
+            //Country does not exist in bucket list
             if(checkMark.getVisibility() == View.INVISIBLE) {
                 checkMark.setVisibility(View.VISIBLE);
+                bucketListViewModel.insert(new BucketListCountry(countryName.getText().toString()));
             } else {
                 checkMark.setVisibility(View.INVISIBLE);
             }
