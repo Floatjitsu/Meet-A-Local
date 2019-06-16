@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -110,6 +111,10 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
             if(checkMark.getVisibility() == View.INVISIBLE) {
                 checkMark.setVisibility(View.VISIBLE);
                 bucketListViewModel.insert(new BucketListCountry(countryName.getText().toString()));
+                Toast.makeText(activityContext,
+                        "Added " + countryName.getText().toString() + " to your Bucket List!",
+                        Toast.LENGTH_SHORT)
+                        .show();
             } else {
                 checkMark.setVisibility(View.INVISIBLE);
             }
