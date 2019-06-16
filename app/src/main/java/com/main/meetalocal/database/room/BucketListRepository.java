@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BucketListRepository {
@@ -23,8 +22,12 @@ public class BucketListRepository {
         return bucketList;
     }
 
+    public LiveData<Integer> countryCount(String countryName) {
+        return bucketListCountryDao.countryCount(countryName);
+    }
+
     public void insert(BucketListCountry bucketListCountry) {
-        new InsertBucketListCountryAsyncTask(bucketListCountryDao).execute(bucketListCountry);
+         new InsertBucketListCountryAsyncTask(bucketListCountryDao).execute(bucketListCountry);
     }
 
     private static class InsertBucketListCountryAsyncTask extends AsyncTask<BucketListCountry, Void, Void> {

@@ -1,7 +1,6 @@
 package com.main.meetalocal.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +8,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.CountryModel;
+import com.main.meetalocal.viewmodel.BucketListViewModel;
 
 import java.util.ArrayList;
 
 public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAdapter.ViewHolder> {
 
+    private BucketListViewModel bucketListViewModel;
     private Context activityContext;
     private StorageReference storageReference;
     private ArrayList<CountryModel> countries;
@@ -33,6 +35,7 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
         storageReference = FirebaseStorage.getInstance().getReference("/images/country_flags/");
         countriesCopy = new ArrayList<>();
         countriesCopy.addAll(countries);
+        bucketListViewModel = ViewModelProviders.of((FragmentActivity) activityContext).get(BucketListViewModel.class);
     }
 
     @NonNull
@@ -48,10 +51,23 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
         holder.countryName.setText(countries.get(position).getCountryName());
         StorageReference ref = storageReference.child(countries.get(position).getRoundedFlagPath());
         GlideApp.with(activityContext).load(ref).into(holder.countryFlag);
+
+        //Check if the country already exists in the users bucket list and toggle the check mark
+        bucketListViewModel.countryCount(countries.get(position).getCountryName())
+                .observe((FragmentActivity) activityContext, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer integer) {
+                        if(integer > 0) {
+                            holder.checkMark.setVisibility(View.VISIBLE);
+                        } else {
+                            holder.checkMark.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                });
     }
 
     /**
-     * Filter the RecyclerView items by a given text
+     * Filter the RecyclerView items (countries) by a given text
      * @param text filter query
      */
     public void filterCountryList(String text) {

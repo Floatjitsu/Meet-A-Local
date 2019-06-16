@@ -7,15 +7,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.main.meetalocal.database.room.BucketListCountry;
-import com.main.meetalocal.database.room.BucketListCountryDao;
-import com.main.meetalocal.database.room.BucketListDatabase;
 import com.main.meetalocal.database.room.BucketListRepository;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class BucketListViewModel extends AndroidViewModel {
 
@@ -36,6 +30,14 @@ public class BucketListViewModel extends AndroidViewModel {
         return bucketList;
     }
 
+    /**
+     * Check if a country already exits in a users bucket List
+     * @param countryName the country that should get checked
+     * @return a live data object from the bucket list repository
+     */
+    public LiveData<Integer> countryCount(String countryName) {
+        return bucketListRepository.countryCount(countryName);
+    }
 
     public void insert(BucketListCountry bucketListCountry) {
         bucketListRepository.insert(bucketListCountry);

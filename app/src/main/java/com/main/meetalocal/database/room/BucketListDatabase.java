@@ -17,7 +17,7 @@ public abstract class BucketListDatabase extends RoomDatabase {
 
     public abstract BucketListCountryDao bucketListCountryDao();
 
-    public static synchronized BucketListDatabase getInstance(Context context) {
+    static synchronized BucketListDatabase getInstance(Context context) {
         if(instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     BucketListDatabase.class, "user_bucket_list")
