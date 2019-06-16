@@ -107,16 +107,24 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
 
         @Override
         public void onClick(View v) {
+            String country = countryName.getText().toString();
             //Country does not exist in bucket list
             if(checkMark.getVisibility() == View.INVISIBLE) {
                 checkMark.setVisibility(View.VISIBLE);
+                //Insert the new country and show success message
                 bucketListViewModel.insert(new BucketListCountry(countryName.getText().toString()));
                 Toast.makeText(activityContext,
-                        "Added " + countryName.getText().toString() + " to your Bucket List!",
+                        "Added " + country + " to your Bucket List!",
                         Toast.LENGTH_SHORT)
                         .show();
-            } else {
+            } else { //Country exists in bucket list
                 checkMark.setVisibility(View.INVISIBLE);
+                //Delete the country and show success message
+                bucketListViewModel.delete(new BucketListCountry(countryName.getText().toString()));
+                Toast.makeText(activityContext,
+                        "Deleted " + country + " from your Bucket List!",
+                        Toast.LENGTH_SHORT)
+                        .show();
             }
         }
     }

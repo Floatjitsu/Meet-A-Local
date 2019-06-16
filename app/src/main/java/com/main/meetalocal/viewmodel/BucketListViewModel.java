@@ -31,16 +31,28 @@ public class BucketListViewModel extends AndroidViewModel {
     }
 
     /**
-     * Check if a country already exits in a users bucket List
-     * @param countryName the country that should get checked
+     * Check if a country already exits in the users bucket List
+     * @param countryName the country which should get checked
      * @return a live data object from the bucket list repository
      */
     public LiveData<Integer> countryCount(String countryName) {
         return bucketListRepository.countryCount(countryName);
     }
 
+    /**
+     * Insert a new country into the the users bucket list
+     * @param bucketListCountry the country which should get inserted
+     */
     public void insert(BucketListCountry bucketListCountry) {
         bucketListRepository.insert(bucketListCountry);
+    }
+
+    /**
+     * Delete a country from the users bucket list
+     * @param bucketListCountry the country which should get deleted
+     */
+    public void delete(BucketListCountry bucketListCountry) {
+        bucketListRepository.delete(bucketListCountry);
     }
 
 }

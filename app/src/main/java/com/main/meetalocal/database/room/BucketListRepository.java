@@ -30,6 +30,10 @@ public class BucketListRepository {
          new InsertBucketListCountryAsyncTask(bucketListCountryDao).execute(bucketListCountry);
     }
 
+    public void delete(BucketListCountry bucketListCountry) {
+        new DeleteBucketListCountryAsyncTask(bucketListCountryDao).execute(bucketListCountry);
+    }
+
     private static class InsertBucketListCountryAsyncTask extends AsyncTask<BucketListCountry, Void, Void> {
 
         private BucketListCountryDao bucketListCountryDao;
@@ -41,6 +45,21 @@ public class BucketListRepository {
         @Override
         protected Void doInBackground(BucketListCountry... bucketListCountries) {
             bucketListCountryDao.insert(bucketListCountries[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteBucketListCountryAsyncTask extends AsyncTask<BucketListCountry, Void, Void> {
+
+        private BucketListCountryDao bucketListCountryDao;
+
+        private DeleteBucketListCountryAsyncTask(BucketListCountryDao bucketListCountryDao) {
+            this.bucketListCountryDao = bucketListCountryDao;
+        }
+
+        @Override
+        protected Void doInBackground(BucketListCountry... bucketListCountries) {
+            bucketListCountryDao.delete(bucketListCountries[0]);
             return null;
         }
     }
