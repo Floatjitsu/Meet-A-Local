@@ -100,4 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    public void onSignUpAsLocal(View view) {
+
+    }
 }

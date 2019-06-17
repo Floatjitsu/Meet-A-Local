@@ -5,6 +5,7 @@
     <string name="login_email_address">E-Mail</string>
     <string name="login_password">Password</string>
     <string name="login">Login</string>
+    <string name="sign_up_as_local"><u>Sign up as a Local</u></string>
 
     <!-- SignUpActivity -->
     <string name="sign_up">Sign Up</string>
