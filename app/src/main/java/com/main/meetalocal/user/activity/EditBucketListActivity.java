@@ -1,4 +1,4 @@
-package com.main.meetalocal.activity;
+package com.main.meetalocal.user.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -16,8 +15,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.main.meetalocal.R;
-import com.main.meetalocal.adapter.EditBucketListAdapter;
-import com.main.meetalocal.database.CountryModel;
+import com.main.meetalocal.user.adapter.EditBucketListAdapter;
+import com.main.meetalocal.user.database.CountryModel;
 
 import java.util.ArrayList;
 

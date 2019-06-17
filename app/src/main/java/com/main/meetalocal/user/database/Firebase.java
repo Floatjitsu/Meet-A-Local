@@ -1,4 +1,4 @@
-package com.main.meetalocal.database;
+package com.main.meetalocal.user.database;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 

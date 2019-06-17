@@ -1,4 +1,4 @@
-package com.main.meetalocal.activity;
+package com.main.meetalocal.user.activity;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -13,11 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.main.meetalocal.R;
-import com.main.meetalocal.database.Authentication;
+import com.main.meetalocal.user.database.Authentication;
 
 public class LoginActivity extends AppCompatActivity {
 

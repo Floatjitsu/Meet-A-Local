@@ -1,4 +1,4 @@
-package com.main.meetalocal.database.room;
+package com.main.meetalocal.user.database.room;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -14,15 +14,16 @@ public class BucketListCountry {
     @PrimaryKey @NonNull
     private String countryName;
 
-    public BucketListCountry(String countryName) {
+    public BucketListCountry(@NonNull String countryName) {
         this.countryName = countryName;
     }
 
+    @NonNull
     public String getCountryName() {
         return countryName;
     }
 
-    public void setCountryName(String countryName) {
+    public void setCountryName(@NonNull String countryName) {
         this.countryName = countryName;
     }
 }

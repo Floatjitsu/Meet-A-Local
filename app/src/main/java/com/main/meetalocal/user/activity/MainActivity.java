@@ -1,7 +1,6 @@
-package com.main.meetalocal.activity;
+package com.main.meetalocal.user.activity;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -21,10 +20,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.main.meetalocal.R;
-import com.main.meetalocal.dialog.LogoutDialog;
-import com.main.meetalocal.fragment.BucketListFragment;
-import com.main.meetalocal.fragment.HomeFragment;
-import com.main.meetalocal.viewmodel.ViewModelUser;
+import com.main.meetalocal.user.dialog.LogoutDialog;
+import com.main.meetalocal.user.fragment.BucketListFragment;
+import com.main.meetalocal.user.fragment.HomeFragment;
+import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
 import java.util.Objects;
 

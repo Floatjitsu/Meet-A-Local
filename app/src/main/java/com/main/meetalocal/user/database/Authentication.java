@@ -1,4 +1,4 @@
-package com.main.meetalocal.database;
+package com.main.meetalocal.user.database;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;

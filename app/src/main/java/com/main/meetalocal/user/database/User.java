@@ -1,4 +1,4 @@
-package com.main.meetalocal.database;
+package com.main.meetalocal.user.database;
 
 public class User {
 

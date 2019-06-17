@@ -13,7 +13,7 @@
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
         android:paddingTop="15dp"
-        tools:context=".activity.SignUpActivity">
+        tools:context=".user.activity.SignUpActivity">
 
         <TextView
             android:id="@+id/text_appName"

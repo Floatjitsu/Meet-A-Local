@@ -1,4 +1,4 @@
-package com.main.meetalocal.fragment;
+package com.main.meetalocal.user.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -17,12 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.main.meetalocal.R;
-import com.main.meetalocal.activity.EditBucketListActivity;
-import com.main.meetalocal.adapter.BucketListAdapter;
-import com.main.meetalocal.database.room.BucketListCountry;
-import com.main.meetalocal.viewmodel.BucketListViewModel;
+import com.main.meetalocal.user.activity.EditBucketListActivity;
+import com.main.meetalocal.user.adapter.BucketListAdapter;
+import com.main.meetalocal.user.database.room.BucketListCountry;
+import com.main.meetalocal.user.viewmodel.BucketListViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BucketListFragment extends Fragment implements View.OnClickListener {

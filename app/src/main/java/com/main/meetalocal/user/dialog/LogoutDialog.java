@@ -1,4 +1,4 @@
-package com.main.meetalocal.dialog;
+package com.main.meetalocal.user.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,11 +8,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.main.meetalocal.R;
-import com.main.meetalocal.activity.LoginActivity;
-import com.main.meetalocal.database.Authentication;
+import com.main.meetalocal.user.activity.LoginActivity;
+import com.main.meetalocal.user.database.Authentication;
 
 public class LogoutDialog extends DialogFragment {
 
@@ -37,7 +38,9 @@ public class LogoutDialog extends DialogFragment {
     public void onStart() {
         super.onStart();
         //Set color of both buttons
-        ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.logout_event_positive_button_color));
-        ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        if(getActivity() != null) {
+            ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getActivity(), R.color.logout_event_positive_button_color));
+            ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+        }
     }
 }

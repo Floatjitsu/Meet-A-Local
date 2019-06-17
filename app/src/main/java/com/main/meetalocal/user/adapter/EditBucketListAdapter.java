@@ -1,4 +1,4 @@
-package com.main.meetalocal.adapter;
+package com.main.meetalocal.user.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,9 +17,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
-import com.main.meetalocal.database.CountryModel;
-import com.main.meetalocal.database.room.BucketListCountry;
-import com.main.meetalocal.viewmodel.BucketListViewModel;
+import com.main.meetalocal.user.database.CountryModel;
+import com.main.meetalocal.user.database.room.BucketListCountry;
+import com.main.meetalocal.user.viewmodel.BucketListViewModel;
 
 import java.util.ArrayList;
 

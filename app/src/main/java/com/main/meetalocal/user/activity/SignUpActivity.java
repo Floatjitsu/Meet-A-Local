@@ -1,4 +1,4 @@
-package com.main.meetalocal.activity;
+package com.main.meetalocal.user.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,9 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.main.meetalocal.R;
-import com.main.meetalocal.database.Authentication;
-import com.main.meetalocal.database.Firebase;
-import com.main.meetalocal.database.User;
+import com.main.meetalocal.user.database.Authentication;
+import com.main.meetalocal.user.database.Firebase;
+import com.main.meetalocal.user.database.User;
 
 public class SignUpActivity extends AppCompatActivity {
 

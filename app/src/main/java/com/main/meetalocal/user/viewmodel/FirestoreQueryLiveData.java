@@ -1,4 +1,4 @@
-package com.main.meetalocal.viewmodel;
+package com.main.meetalocal.user.viewmodel;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;

@@ -1,4 +1,4 @@
-package com.main.meetalocal.fragment;
+package com.main.meetalocal.user.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
