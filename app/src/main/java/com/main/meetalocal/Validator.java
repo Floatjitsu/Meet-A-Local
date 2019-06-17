@@ -1,4 +1,4 @@
-package com.main.meetalocal.validation;
+package com.main.meetalocal;
 
 import android.text.TextUtils;
 import android.widget.EditText;

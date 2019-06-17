@@ -20,7 +20,7 @@ import com.main.meetalocal.R;
 import com.main.meetalocal.user.database.Authentication;
 import com.main.meetalocal.user.database.Firebase;
 import com.main.meetalocal.user.database.User;
-import com.main.meetalocal.validation.Validator;
+import com.main.meetalocal.Validator;
 
 public class SignUpActivity extends AppCompatActivity {
 
