@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Vibrator;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,6 +20,7 @@ import com.main.meetalocal.R;
 import com.main.meetalocal.user.database.Authentication;
 import com.main.meetalocal.user.database.Firebase;
 import com.main.meetalocal.user.database.User;
+import com.main.meetalocal.validation.Validator;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -80,20 +80,8 @@ public class SignUpActivity extends AppCompatActivity {
     //Check if the user inputs are valid
     private boolean isValid() {
         EditText [] userInputs = new EditText [] {
-                mEmail, mFirstName, mSurname, mCountry, mHomeTown,
-                mPassword, mPasswordConfirm
+                mEmail, mFirstName, mSurname, mCountry, mHomeTown
         };
-        boolean isValid = true;
-        for(EditText editText : userInputs) {
-            if(TextUtils.isEmpty(editText.getText().toString())) {
-                editText.setError("This field is required!");
-                isValid = false;
-            }
-        }
-        if(!mPassword.getText().toString().equals(mPasswordConfirm.getText().toString())) {
-            mPasswordConfirm.setError("Passwords doesn't match!");
-            isValid = false;
-        }
-        return isValid;
+        return Validator.validateUserInputs(userInputs) && Validator.validatePasswords(mPassword, mPasswordConfirm);
     }
 }
