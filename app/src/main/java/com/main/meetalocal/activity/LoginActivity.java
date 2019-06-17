@@ -43,9 +43,14 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     /*
     Start SignUpActivity Activity
-     */
+    */
     public void onStartSignUp(View view) {
         startActivity(new Intent(this, SignUpActivity.class));
     }

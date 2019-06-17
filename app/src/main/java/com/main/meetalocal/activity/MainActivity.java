@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        new LogoutDialog().show(getSupportFragmentManager(), "Logout Dialog");
+    }
+
     /**
      * Set up the NavigationDrawerHeader with the users email, first name and surname
      */

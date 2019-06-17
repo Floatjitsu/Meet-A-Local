@@ -15,13 +15,10 @@ public interface BucketListCountryDao {
     @Insert
     void insert(BucketListCountry bucketListCountry);
 
-    @Update
-    void update(BucketListCountry bucketListCountry);
-
     @Delete
     void delete(BucketListCountry bucketListCountry);
 
-    @Query("SELECT * FROM user_bucket_list ORDER BY countryName DESC")
+    @Query("SELECT * FROM user_bucket_list ORDER BY countryName ASC")
     LiveData<List<BucketListCountry>> getBucketList();
 
     @Query("SELECT COUNT(countryName) FROM user_bucket_list WHERE countryName = :countryName")
