@@ -5,7 +5,6 @@
     <string name="login_email_address">E-Mail</string>
     <string name="login_password">Password</string>
     <string name="login">Login</string>
-    <string name="sign_up_as_local"><u>Sign up as a Local</u></string>
 
     <!-- SignUpActivity -->
     <string name="sign_up">Sign Up</string>
@@ -14,6 +13,10 @@
     <string name="sign_up_home_country">Home Country</string>
     <string name="sign_up_home_town">Home Town</string>
     <string name="sign_up_confirm_password">Confirm Password</string>
+
+    <!-- Sign up as Local -->
+    <string name="sign_up_as_local_next_step">Next Step</string>
+    <string name="sign_up_as_local"><u>Sign up as a Local</u></string>
 
     <!-- Navigation Drawer Menu -->
     <string name="navigation_drawer_menu_home">Home</string>

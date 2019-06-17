@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".local.activity.SignUpAsLocalActivity"></activity>
         <activity android:name=".user.activity.EditBucketListActivity" />
         <activity android:name=".user.activity.SignUpActivity" />
         <activity android:name=".user.activity.LoginActivity">

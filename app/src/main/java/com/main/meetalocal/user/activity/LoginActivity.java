@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.main.meetalocal.R;
+import com.main.meetalocal.local.activity.SignUpAsLocalActivity;
 import com.main.meetalocal.user.database.Authentication;
 
 public class LoginActivity extends AppCompatActivity {
@@ -100,6 +101,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void onSignUpAsLocal(View view) {
-
+        startActivity(new Intent(this, SignUpAsLocalActivity.class));
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp">
+
+    <EditText
+        android:id="@+id/edit_text_email_sign_up_local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/login_email_address"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/textColor"
+        tools:ignore="Autofill" />
+
+    <EditText
+        android:id="@+id/edit_text_first_name_local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:hint="@string/sign_up_first_name"
+        android:inputType="textCapSentences"
+        android:layout_marginTop="10dp"
+        tools:ignore="Autofill" />
+
+    <EditText
+        android:id="@+id/edit_text_surname_local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:inputType="textCapSentences"
+        android:hint="@string/sign_up_surname"
+        android:layout_marginTop="10dp"
+        tools:ignore="Autofill" />
+
+    <EditText
+        android:id="@+id/edit_text_home_country_local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
+        android:textColor="@color/textColor"
+        android:hint="@string/sign_up_home_country"
+        android:layout_marginTop="10dp"
+        tools:ignore="Autofill" />
+
+    <EditText
+        android:id="@+id/edit_text_home_town_local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
+        android:textColor="@color/textColor"
+        android:hint="@string/sign_up_home_town"
+        android:layout_marginTop="10dp"
+        tools:ignore="Autofill" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/sign_up_as_local_next_step"
+        android:textColor="@color/textColor"
+        android:background="@drawable/button"
+        android:fontFamily="@font/nunito_bold" />
+
+</LinearLayout>
