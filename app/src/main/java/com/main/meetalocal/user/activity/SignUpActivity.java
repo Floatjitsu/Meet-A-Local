@@ -102,8 +102,8 @@ public class SignUpActivity extends AppCompatActivity {
     private void setAutoCompleteCountry() {
         final Context context = this;
         //Get all available countries from the FirebaseFirestore
-        FirebaseFirestore.getInstance().collection("countries")
-            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        FirebaseFirestore.getInstance().collection("countries").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if(!queryDocumentSnapshots.isEmpty()) {

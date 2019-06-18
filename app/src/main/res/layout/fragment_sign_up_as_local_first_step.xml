@@ -37,15 +37,14 @@
         android:layout_marginTop="10dp"
         tools:ignore="Autofill" />
 
-    <EditText
-        android:id="@+id/edit_text_home_country_local"
+    <AutoCompleteTextView
+        android:id="@+id/auto_complete_text_home_country_local"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textCapSentences"
         android:textColor="@color/textColor"
         android:hint="@string/sign_up_home_country"
         android:layout_marginTop="10dp"
-        tools:ignore="Autofill" />
+        android:completionThreshold="1" />
 
     <EditText
         android:id="@+id/edit_text_home_town_local"
