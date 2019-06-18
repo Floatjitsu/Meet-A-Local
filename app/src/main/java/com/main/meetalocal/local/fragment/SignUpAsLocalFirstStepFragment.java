@@ -40,7 +40,7 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         EditText [] userInputs = {mEmail, mFirstName, mSurname, mCountry, mHomeTown};
         if(view.getId() == R.id.button_next_step) {
            if(Validator.validateUserInputs(userInputs)) {
-               
+
            }
         }
     }

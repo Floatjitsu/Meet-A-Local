@@ -60,22 +60,21 @@
             android:layout_marginTop="10dp"
             tools:ignore="Autofill" />
 
-        <EditText
-            android:id="@+id/edit_text_home_country"
+        <AutoCompleteTextView
+            android:id="@+id/auto_complete_text_home_country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapSentences"
             android:textColor="@color/textColor"
             app:layout_constraintTop_toBottomOf="@id/edit_text_surname"
             android:hint="@string/sign_up_home_country"
             android:layout_marginTop="10dp"
-            tools:ignore="Autofill" />
+            android:completionThreshold="1" />
 
         <EditText
             android:id="@+id/edit_text_home_town"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_home_country"
+            app:layout_constraintTop_toBottomOf="@id/auto_complete_text_home_country"
             android:inputType="textCapSentences"
             android:textColor="@color/textColor"
             android:hint="@string/sign_up_home_town"
