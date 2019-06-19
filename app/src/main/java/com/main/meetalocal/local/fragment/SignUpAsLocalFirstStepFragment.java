@@ -25,7 +25,7 @@ import java.util.List;
 
 public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnClickListener {
 
-    private EditText mEmail, mFirstName, mSurname, mHomeTown;
+    private EditText mEmail, mFirstName, mSurname, mHomeTown, mPassword, mPasswordConfirm;
     private AutoCompleteTextView mAutoCompleteCountry;
 
     @Nullable
@@ -41,6 +41,8 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         mSurname = view.findViewById(R.id.edit_text_surname_local);
         mHomeTown = view.findViewById(R.id.edit_text_home_town_local);
         mAutoCompleteCountry = view.findViewById(R.id.auto_complete_text_home_country_local);
+        mPassword = view.findViewById(R.id.edit_text_password_local);
+        mPasswordConfirm = view.findViewById(R.id.edit_text_password_confirm_local);
 
         setAutoCompleteCountry();
 
@@ -51,7 +53,7 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
     public void onClick(View view) {
         EditText [] userInputs = {mEmail, mFirstName, mSurname, mAutoCompleteCountry, mHomeTown};
         if(view.getId() == R.id.button_next_step) {
-           if(Validator.validateUserInputs(userInputs)) {
+           if(Validator.validateUserInputs(userInputs) && Validator.validatePasswords(mPassword, mPasswordConfirm)) {
 
            }
         }

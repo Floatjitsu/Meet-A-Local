@@ -56,6 +56,26 @@
         android:layout_marginTop="10dp"
         tools:ignore="Autofill" />
 
+    <EditText
+        android:id="@+id/edit_text_password_local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="@string/login_password"
+        android:textColor="@color/textColor"
+        android:layout_marginTop="10dp"
+        tools:ignore="Autofill" />
+
+    <EditText
+        android:id="@+id/edit_text_password_confirm_local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="@string/sign_up_confirm_password"
+        android:textColor="@color/textColor"
+        android:layout_marginTop="10dp"
+        tools:ignore="Autofill" />
+
     <Button
         android:id="@+id/button_next_step"
         android:layout_width="match_parent"
