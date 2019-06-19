@@ -1,4 +1,4 @@
-package com.main.meetalocal.user.dialog;
+package com.main.meetalocal.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.main.meetalocal.R;
 import com.main.meetalocal.user.activity.LoginActivity;
-import com.main.meetalocal.user.database.Authentication;
+import com.main.meetalocal.database.Authentication;
 
 public class LogoutDialog extends DialogFragment {
 

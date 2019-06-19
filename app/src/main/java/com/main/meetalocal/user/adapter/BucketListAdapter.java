@@ -18,8 +18,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
-import com.main.meetalocal.user.database.CountryModel;
-import com.main.meetalocal.user.database.room.BucketListCountry;
+import com.main.meetalocal.database.CountryModel;
+import com.main.meetalocal.database.room.BucketListCountry;
 
 import java.util.List;
 

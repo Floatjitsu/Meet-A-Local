@@ -1,4 +1,4 @@
-package com.main.meetalocal.user.database.room;
+package com.main.meetalocal.database.room;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

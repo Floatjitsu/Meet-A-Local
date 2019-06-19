@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.main.meetalocal.R;
 import com.main.meetalocal.user.adapter.EditBucketListAdapter;
-import com.main.meetalocal.user.database.CountryModel;
+import com.main.meetalocal.database.CountryModel;
 
 import java.util.ArrayList;
 

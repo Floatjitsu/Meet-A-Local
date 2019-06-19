@@ -19,17 +19,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.main.meetalocal.R;
-import com.main.meetalocal.user.database.Authentication;
-import com.main.meetalocal.user.database.CountryModel;
-import com.main.meetalocal.user.database.Firebase;
-import com.main.meetalocal.user.database.User;
+import com.main.meetalocal.database.Authentication;
+import com.main.meetalocal.database.CountryModel;
+import com.main.meetalocal.database.Firebase;
+import com.main.meetalocal.database.User;
 import com.main.meetalocal.Validator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {

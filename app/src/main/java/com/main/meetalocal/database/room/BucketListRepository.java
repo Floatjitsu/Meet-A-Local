@@ -1,4 +1,4 @@
-package com.main.meetalocal.user.database.room;
+package com.main.meetalocal.database.room;
 
 import android.app.Application;
 import android.os.AsyncTask;

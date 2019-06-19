@@ -20,7 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.main.meetalocal.R;
-import com.main.meetalocal.user.dialog.LogoutDialog;
+import com.main.meetalocal.dialog.LogoutDialog;
 import com.main.meetalocal.user.fragment.BucketListFragment;
 import com.main.meetalocal.user.fragment.HomeFragment;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;

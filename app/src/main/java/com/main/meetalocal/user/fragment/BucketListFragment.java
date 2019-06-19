@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.main.meetalocal.R;
 import com.main.meetalocal.user.activity.EditBucketListActivity;
 import com.main.meetalocal.user.adapter.BucketListAdapter;
-import com.main.meetalocal.user.database.room.BucketListCountry;
+import com.main.meetalocal.database.room.BucketListCountry;
 import com.main.meetalocal.user.viewmodel.BucketListViewModel;
 
 import java.util.List;

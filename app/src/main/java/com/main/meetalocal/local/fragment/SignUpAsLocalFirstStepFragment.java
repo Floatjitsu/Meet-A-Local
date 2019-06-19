@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.main.meetalocal.R;
 import com.main.meetalocal.Validator;
-import com.main.meetalocal.user.database.CountryModel;
+import com.main.meetalocal.database.CountryModel;
 
 import java.util.List;
 

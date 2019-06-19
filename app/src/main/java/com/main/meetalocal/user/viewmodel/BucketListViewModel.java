@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.main.meetalocal.user.database.room.BucketListCountry;
-import com.main.meetalocal.user.database.room.BucketListRepository;
+import com.main.meetalocal.database.room.BucketListCountry;
+import com.main.meetalocal.database.room.BucketListRepository;
 
 import java.util.List;
 
