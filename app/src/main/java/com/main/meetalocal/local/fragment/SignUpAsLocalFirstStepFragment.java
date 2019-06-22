@@ -2,6 +2,7 @@ package com.main.meetalocal.local.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +10,26 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.main.meetalocal.R;
 import com.main.meetalocal.Validator;
 import com.main.meetalocal.database.CountryModel;
+import com.main.meetalocal.database.Firebase;
+import com.main.meetalocal.database.Local;
 import com.main.meetalocal.database.User;
 
 import java.util.List;
@@ -56,16 +65,46 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         EditText [] userInputs = {mEmail, mFirstName, mSurname, mAutoCompleteCountry, mHomeTown};
         if(view.getId() == R.id.button_next_step) {
            if(Validator.validateUserInputs(userInputs) && Validator.validatePasswords(mPassword, mPasswordConfirm)) {
-               if(getFragmentManager() != null) {
-                   //Create Bundle out of user Inputs and start step 2 fragment
-                   SignUpAsLocalSecondStepFragment secondStepFragment = new SignUpAsLocalSecondStepFragment();
-                   secondStepFragment.setArguments(buildUserBundle());
-                   getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_placeholder_sign_up_as_local_activity, secondStepFragment)
-                            .commit();
+               if(getActivity() != null) {
+                   FirebaseAuth.getInstance().createUserWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString())
+                        .addOnCompleteListener(onCompleteListener())
+                        .addOnFailureListener(onFailureListener());
+
                }
            }
         }
+    }
+
+    //OnCompleteListener for the sign up in Firebase
+    private OnCompleteListener<AuthResult> onCompleteListener() {
+        return new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                //Create Bundle out of user Inputs and start step 2 fragment
+                SignUpAsLocalSecondStepFragment secondStepFragment = new SignUpAsLocalSecondStepFragment();
+                secondStepFragment.setArguments(buildUserBundle());
+                if(getFragmentManager() != null && task.isSuccessful()) {
+                    new Firebase().addLocalUserToFirebase(buildLocalUser());
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_placeholder_sign_up_as_local_activity, secondStepFragment)
+                            .commit();
+                }
+            }
+        };
+    }
+
+    //OnFailureListener for the sign up in Firebase
+    private OnFailureListener onFailureListener() {
+        return new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if(getActivity() != null) {
+                    Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(100);
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
     }
 
     //Build the suggestions for the AutoCompleteTextView Home Country
@@ -87,6 +126,17 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
                 }
             }
         });
+    }
+
+    //Build a local user object from the user inputs for signing them up
+    private Local buildLocalUser() {
+        String email = mEmail.getText().toString();
+        String firstName = mFirstName.getText().toString();
+        String surname = mSurname.getText().toString();
+        String country = mAutoCompleteCountry.getText().toString();
+        String homeTown = mHomeTown.getText().toString();
+
+        return new Local(firstName, surname, country, homeTown, email);
     }
 
     //Build a Bundle Object out of the user inputs for the second step fragment
