@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
 
     private EditText mEmail, mFirstName, mSurname, mHomeTown, mPassword, mPasswordConfirm;
     private AutoCompleteTextView mAutoCompleteCountry;
+    private ProgressBar mProgressBar;
 
     @Nullable
     @Override
@@ -54,6 +56,7 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         mAutoCompleteCountry = view.findViewById(R.id.auto_complete_text_home_country_local);
         mPassword = view.findViewById(R.id.edit_text_password_local);
         mPasswordConfirm = view.findViewById(R.id.edit_text_password_confirm_local);
+        mProgressBar = view.findViewById(R.id.progress_bar_horizontal);
 
         setAutoCompleteCountry();
 
@@ -66,12 +69,12 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         if(view.getId() == R.id.button_next_step) {
            if(Validator.validateUserInputs(userInputs) && Validator.validatePasswords(mPassword, mPasswordConfirm)) {
                if(getActivity() != null) {
+                   mProgressBar.setVisibility(View.VISIBLE);
                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString())
                         .addOnCompleteListener(onCompleteListener())
                         .addOnFailureListener(onFailureListener());
-
                }
-           }
+           } 
         }
     }
 
@@ -88,6 +91,7 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
                     getFragmentManager().beginTransaction()
                             .replace(R.id.fragment_placeholder_sign_up_as_local_activity, secondStepFragment)
                             .commit();
+                    mProgressBar.setVisibility(View.INVISIBLE);
                 }
             }
         };
@@ -102,6 +106,7 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
                     Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                     vibrator.vibrate(100);
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    mProgressBar.setVisibility(View.INVISIBLE);
                 }
             }
         };
