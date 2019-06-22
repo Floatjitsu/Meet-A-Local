@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.main.meetalocal.R;
 import com.main.meetalocal.Validator;
 import com.main.meetalocal.database.CountryModel;
+import com.main.meetalocal.database.User;
 
 import java.util.List;
 
@@ -56,8 +57,11 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         if(view.getId() == R.id.button_next_step) {
            if(Validator.validateUserInputs(userInputs) && Validator.validatePasswords(mPassword, mPasswordConfirm)) {
                if(getFragmentManager() != null) {
+                   //Create Bundle out of user Inputs and start step 2 fragment
+                   SignUpAsLocalSecondStepFragment secondStepFragment = new SignUpAsLocalSecondStepFragment();
+                   secondStepFragment.setArguments(buildUserBundle());
                    getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_placeholder_sign_up_as_local_activity, new SignUpAsLocalSecondStepFragment())
+                            .replace(R.id.fragment_placeholder_sign_up_as_local_activity, secondStepFragment)
                             .commit();
                }
            }
@@ -83,5 +87,23 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
                 }
             }
         });
+    }
+
+    //Build a Bundle Object out of the user inputs for the second step fragment
+    private Bundle buildUserBundle() {
+        String email = mEmail.getText().toString();
+        String firstName = mFirstName.getText().toString();
+        String surname = mSurname.getText().toString();
+        String country = mAutoCompleteCountry.getText().toString();
+        String homeTown = mHomeTown.getText().toString();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("email", email);
+        bundle.putString("firstName", firstName);
+        bundle.putString("surname", surname);
+        bundle.putString("country", country);
+        bundle.putString("homeTown", homeTown);
+
+        return bundle;
     }
 }

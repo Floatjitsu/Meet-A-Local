@@ -16,7 +16,7 @@ public class SignUpAsLocalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up_as_local);
 
         getSupportFragmentManager().beginTransaction()
-            .add(R.id.fragment_placeholder_sign_up_as_local_activity, new SignUpAsLocalSecondStepFragment())
+            .add(R.id.fragment_placeholder_sign_up_as_local_activity, new SignUpAsLocalFirstStepFragment())
             .commit();
     }
 }

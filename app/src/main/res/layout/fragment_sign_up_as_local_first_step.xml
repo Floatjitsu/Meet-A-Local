@@ -44,7 +44,9 @@
         android:textColor="@color/textColor"
         android:hint="@string/sign_up_home_country"
         android:layout_marginTop="10dp"
-        android:completionThreshold="1" />
+        android:completionThreshold="1"
+        android:inputType="textCapSentences"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:id="@+id/edit_text_home_town_local"

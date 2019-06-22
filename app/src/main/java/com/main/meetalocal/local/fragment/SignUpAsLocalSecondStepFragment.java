@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,8 @@ public class SignUpAsLocalSecondStepFragment extends Fragment implements Compoun
 
         CheckBox checkBoxGuidedTours = view.findViewById(R.id.check_box_guided_tours);
         checkBoxGuidedTours.setOnCheckedChangeListener(this);
+
+        Toast.makeText(getActivity(), getArguments().getString("firstName"), Toast.LENGTH_SHORT).show();
     }
 
     @Override
