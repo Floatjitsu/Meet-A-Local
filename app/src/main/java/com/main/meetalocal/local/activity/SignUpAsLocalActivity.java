@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.main.meetalocal.R;
 import com.main.meetalocal.local.fragment.SignUpAsLocalFirstStepFragment;
+import com.main.meetalocal.local.fragment.SignUpAsLocalSecondStepFragment;
 
 public class SignUpAsLocalActivity extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class SignUpAsLocalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up_as_local);
 
         getSupportFragmentManager().beginTransaction()
-            .add(R.id.fragment_placeholder_sign_up_as_local_activity, new SignUpAsLocalFirstStepFragment())
+            .add(R.id.fragment_placeholder_sign_up_as_local_activity, new SignUpAsLocalSecondStepFragment())
             .commit();
     }
 }

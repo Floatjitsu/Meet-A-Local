@@ -13,6 +13,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,7 +55,11 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         EditText [] userInputs = {mEmail, mFirstName, mSurname, mAutoCompleteCountry, mHomeTown};
         if(view.getId() == R.id.button_next_step) {
            if(Validator.validateUserInputs(userInputs) && Validator.validatePasswords(mPassword, mPasswordConfirm)) {
-
+               if(getFragmentManager() != null) {
+                   getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_placeholder_sign_up_as_local_activity, new SignUpAsLocalSecondStepFragment())
+                            .commit();
+               }
            }
         }
     }

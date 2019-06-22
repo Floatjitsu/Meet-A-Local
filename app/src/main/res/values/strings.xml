@@ -17,6 +17,12 @@
     <!-- Sign up as Local -->
     <string name="sign_up_as_local_next_step">Next Step</string>
     <string name="sign_up_as_local"><u>Sign up as a Local</u></string>
+    <string name="sign_up_as_local_introduce">Kindly introduce yourself (optional)</string>
+    <string name="sign_up_as_local_provide_options">Tell us what you want to provide</string>
+    <string name="sign_up_as_local_finish_sign_up">Finish Sign Up</string>
+    <string name="provide_option_accommodation">Accommodation</string>
+    <string name="provide_option_accompany">Accompany</string>
+    <string name="provide_option_guided_tours">Guided Tours</string>
 
     <!-- Navigation Drawer Menu -->
     <string name="navigation_drawer_menu_home">Home</string>
