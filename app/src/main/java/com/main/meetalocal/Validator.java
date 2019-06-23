@@ -49,6 +49,12 @@ public class Validator {
         return isValid;
     }
 
+    /**
+     * Validate Provision CheckBoxes in SignUpAsLocalSecondStepFragment
+     * At least one CheckBox must be checked
+     * @param checkBoxes the check boxes to be validated
+     * @return true (valid) or false (invalid)
+     */
     public static boolean validateLocalSignUpStepTwo(CheckBox [] checkBoxes) {
         boolean isValid = false;
         for(CheckBox checkBox : checkBoxes) {
