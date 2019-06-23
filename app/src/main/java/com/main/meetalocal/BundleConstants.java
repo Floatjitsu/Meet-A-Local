@@ -10,4 +10,5 @@ public class BundleConstants {
     public static final String SURNAME = "surname";
     public static final String COUNTRY = "country";
     public static final String HOME_TOWN = "homeTown";
+    public static final String PASSWORD = "password";
 }

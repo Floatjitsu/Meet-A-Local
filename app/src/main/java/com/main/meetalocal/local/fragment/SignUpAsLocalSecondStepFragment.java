@@ -11,23 +11,31 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.main.meetalocal.BundleConstants;
 import com.main.meetalocal.R;
 import com.main.meetalocal.Validator;
 import com.main.meetalocal.database.Firebase;
 import com.main.meetalocal.database.Local;
+import com.main.meetalocal.database.Password;
 
 public class SignUpAsLocalSecondStepFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
     private CheckBox mCheckBoxAccommodation, mCheckBoxAccompany, mCheckBoxGuidedTours;
     private EditText mLocalIntroduction;
     private Local localUser;
+    private ProgressBar mProgressBar;
 
     @Nullable
     @Override
@@ -47,6 +55,8 @@ public class SignUpAsLocalSecondStepFragment extends Fragment implements Compoun
         mCheckBoxGuidedTours.setOnCheckedChangeListener(this);
 
         mLocalIntroduction = view.findViewById(R.id.edit_text_local_introduction);
+
+        mProgressBar = view.findViewById(R.id.progress_bar_horizontal);
 
         if(getArguments() != null) {
             localUser = buildLocal(getArguments());
@@ -74,6 +84,7 @@ public class SignUpAsLocalSecondStepFragment extends Fragment implements Compoun
 
     @Override
     public void onClick(View v) {
+        mProgressBar.setVisibility(View.VISIBLE);
         CheckBox [] checkBoxes = { mCheckBoxGuidedTours, mCheckBoxAccompany, mCheckBoxAccommodation };
         if(!Validator.validateLocalSignUpStepTwo(checkBoxes) && getActivity() != null) {
             Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
@@ -84,8 +95,51 @@ public class SignUpAsLocalSecondStepFragment extends Fragment implements Compoun
             if(!TextUtils.isEmpty(introduction)) {
                 localUser.setIntroduction(introduction);
             }
-            new Firebase().addLocalUserToFirebase(localUser);
+            try {
+                signUpLocal();
+                new Firebase().addLocalUserToFirebase(localUser);
+            } catch (Exception ex) {
+                Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+                mProgressBar.setVisibility(View.INVISIBLE);
+            }
         }
+    }
+
+    private void signUpLocal() throws Exception {
+        if(getArguments() != null) {
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                    localUser.getEmail(), Password.decrypt(getArguments().getString(BundleConstants.PASSWORD)))
+                    .addOnCompleteListener(onCompleteListener())
+                    .addOnFailureListener(onFailureListener());
+        }
+    }
+
+    //OnCompleteListener for the sign up in Firebase
+    private OnCompleteListener<AuthResult> onCompleteListener() {
+        return new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    Toast.makeText(getActivity(), "User got created!", Toast.LENGTH_SHORT).show();
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                }
+            }
+        };
+    }
+
+    //OnFailureListener for the sign up in Firebase
+    private OnFailureListener onFailureListener() {
+        return new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if(getActivity() != null) {
+                    Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(100);
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                }
+            }
+        };
     }
 
     //Build a Local Object for the Database from Bundle and Fragment

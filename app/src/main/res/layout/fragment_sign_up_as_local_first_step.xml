@@ -78,16 +78,6 @@
         android:layout_marginTop="10dp"
         tools:ignore="Autofill" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminate="true"
-        android:backgroundTint="@color/colorPrimary"
-        android:max="100"/>
-
     <Button
         android:id="@+id/button_next_step"
         android:layout_width="match_parent"

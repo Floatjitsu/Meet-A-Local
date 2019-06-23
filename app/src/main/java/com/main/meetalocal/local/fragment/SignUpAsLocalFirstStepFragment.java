@@ -32,6 +32,7 @@ import com.main.meetalocal.Validator;
 import com.main.meetalocal.database.CountryModel;
 import com.main.meetalocal.database.Firebase;
 import com.main.meetalocal.database.Local;
+import com.main.meetalocal.database.Password;
 import com.main.meetalocal.database.User;
 
 import java.util.List;
@@ -40,7 +41,6 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
 
     private EditText mEmail, mFirstName, mSurname, mHomeTown, mPassword, mPasswordConfirm;
     private AutoCompleteTextView mAutoCompleteCountry;
-    private ProgressBar mProgressBar;
 
     @Nullable
     @Override
@@ -57,7 +57,6 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         mAutoCompleteCountry = view.findViewById(R.id.auto_complete_text_home_country_local);
         mPassword = view.findViewById(R.id.edit_text_password_local);
         mPasswordConfirm = view.findViewById(R.id.edit_text_password_confirm_local);
-        mProgressBar = view.findViewById(R.id.progress_bar_horizontal);
 
         setAutoCompleteCountry();
 
@@ -69,48 +68,40 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         EditText [] userInputs = {mEmail, mFirstName, mSurname, mAutoCompleteCountry, mHomeTown};
         if(view.getId() == R.id.button_next_step) {
            if(Validator.validateUserInputs(userInputs) && Validator.validatePasswords(mPassword, mPasswordConfirm)) {
-               if(getActivity() != null) {
-                   mProgressBar.setVisibility(View.VISIBLE);
-                   FirebaseAuth.getInstance().createUserWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString())
-                        .addOnCompleteListener(onCompleteListener())
-                        .addOnFailureListener(onFailureListener());
+               if(getActivity() != null && getFragmentManager() != null) {
+                   try {
+                       SignUpAsLocalSecondStepFragment secondStepFragment = new SignUpAsLocalSecondStepFragment();
+                       secondStepFragment.setArguments(buildUserBundle());
+                       getFragmentManager().beginTransaction()
+                               .replace(R.id.fragment_placeholder_sign_up_as_local_activity, secondStepFragment)
+                               .addToBackStack(null)
+                               .commit();
+                   } catch (Exception ex) {
+                       Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+                   }
                }
            }
         }
     }
 
-    //OnCompleteListener for the sign up in Firebase
-    private OnCompleteListener<AuthResult> onCompleteListener() {
-        return new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                //Create Bundle out of user Inputs and start step 2 fragment
-                SignUpAsLocalSecondStepFragment secondStepFragment = new SignUpAsLocalSecondStepFragment();
-                secondStepFragment.setArguments(buildUserBundle());
-                if(getFragmentManager() != null && task.isSuccessful()) {
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_placeholder_sign_up_as_local_activity, secondStepFragment)
-                            .addToBackStack(null)
-                            .commit();
-                    mProgressBar.setVisibility(View.INVISIBLE);
-                }
-            }
-        };
-    }
+    //Build a Bundle Object out of the user inputs for the second step fragment
+    private Bundle buildUserBundle() throws Exception {
+        String email = mEmail.getText().toString();
+        String firstName = mFirstName.getText().toString();
+        String surname = mSurname.getText().toString();
+        String country = mAutoCompleteCountry.getText().toString();
+        String homeTown = mHomeTown.getText().toString();
+        String password = mPassword.getText().toString();
 
-    //OnFailureListener for the sign up in Firebase
-    private OnFailureListener onFailureListener() {
-        return new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                if(getActivity() != null) {
-                    Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-                    vibrator.vibrate(100);
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    mProgressBar.setVisibility(View.INVISIBLE);
-                }
-            }
-        };
+        Bundle bundle = new Bundle();
+        bundle.putString(BundleConstants.EMAIL, email);
+        bundle.putString(BundleConstants.FIRST_NAME, firstName);
+        bundle.putString(BundleConstants.SURNAME, surname);
+        bundle.putString(BundleConstants.COUNTRY, country);
+        bundle.putString(BundleConstants.HOME_TOWN, homeTown);
+        bundle.putString(BundleConstants.PASSWORD, Password.encrypt(password));
+
+        return bundle;
     }
 
     //Build the suggestions for the AutoCompleteTextView Home Country
@@ -119,36 +110,18 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         //Get all available countries from the FirebaseFirestore
         FirebaseFirestore.getInstance().collection("countries").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(!queryDocumentSnapshots.isEmpty()) {
-                    List<CountryModel> countries =  queryDocumentSnapshots.toObjects(CountryModel.class);
-                    String [] countryArray = new String [countries.size()];
-                    for(int i = 0; i < countries.size(); i++) {
-                        countryArray[i] = countries.get(i).getCountryName();
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(!queryDocumentSnapshots.isEmpty()) {
+                            List<CountryModel> countries =  queryDocumentSnapshots.toObjects(CountryModel.class);
+                            String [] countryArray = new String [countries.size()];
+                            for(int i = 0; i < countries.size(); i++) {
+                                countryArray[i] = countries.get(i).getCountryName();
+                            }
+                            if(context != null)
+                                mAutoCompleteCountry.setAdapter(new ArrayAdapter<>(context, android.R.layout.select_dialog_item, countryArray));
+                        }
                     }
-                    if(context != null)
-                        mAutoCompleteCountry.setAdapter(new ArrayAdapter<>(context, android.R.layout.select_dialog_item, countryArray));
-                }
-            }
-        });
-    }
-
-    //Build a Bundle Object out of the user inputs for the second step fragment
-    private Bundle buildUserBundle() {
-        String email = mEmail.getText().toString();
-        String firstName = mFirstName.getText().toString();
-        String surname = mSurname.getText().toString();
-        String country = mAutoCompleteCountry.getText().toString();
-        String homeTown = mHomeTown.getText().toString();
-
-        Bundle bundle = new Bundle();
-        bundle.putString(BundleConstants.EMAIL, email);
-        bundle.putString(BundleConstants.FIRST_NAME, firstName);
-        bundle.putString(BundleConstants.SURNAME, surname);
-        bundle.putString(BundleConstants.COUNTRY, country);
-        bundle.putString(BundleConstants.HOME_TOWN, homeTown);
-
-        return bundle;
+                });
     }
 }
