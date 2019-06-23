@@ -26,6 +26,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.main.meetalocal.BundleConstants;
 import com.main.meetalocal.R;
 import com.main.meetalocal.Validator;
 import com.main.meetalocal.database.CountryModel;
@@ -142,11 +143,11 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
         String homeTown = mHomeTown.getText().toString();
 
         Bundle bundle = new Bundle();
-        bundle.putString("email", email);
-        bundle.putString("firstName", firstName);
-        bundle.putString("surname", surname);
-        bundle.putString("country", country);
-        bundle.putString("homeTown", homeTown);
+        bundle.putString(BundleConstants.EMAIL, email);
+        bundle.putString(BundleConstants.FIRST_NAME, firstName);
+        bundle.putString(BundleConstants.SURNAME, surname);
+        bundle.putString(BundleConstants.COUNTRY, country);
+        bundle.putString(BundleConstants.HOME_TOWN, homeTown);
 
         return bundle;
     }

@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.main.meetalocal.BundleConstants;
 import com.main.meetalocal.R;
 import com.main.meetalocal.Validator;
 import com.main.meetalocal.database.Firebase;
@@ -77,7 +78,7 @@ public class SignUpAsLocalSecondStepFragment extends Fragment implements Compoun
         if(!Validator.validateLocalSignUpStepTwo(checkBoxes) && getActivity() != null) {
             Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(100);
-            Toast.makeText(getActivity(), "Please select at least one provision", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Please select at least one Provision!", Toast.LENGTH_SHORT).show();
         } else {
             String introduction = mLocalIntroduction.getText().toString();
             if(!TextUtils.isEmpty(introduction)) {
@@ -89,11 +90,11 @@ public class SignUpAsLocalSecondStepFragment extends Fragment implements Compoun
 
     //Build a Local Object for the Database from Bundle and Fragment
     private Local buildLocal(Bundle bundle) {
-        String email = bundle.getString("email");
-        String firstName = bundle.getString("firstName");
-        String surname = bundle.getString("surname");
-        String country = bundle.getString("country");
-        String homeTown = bundle.getString("homeTown");
+        String email = bundle.getString(BundleConstants.EMAIL);
+        String firstName = bundle.getString(BundleConstants.FIRST_NAME);
+        String surname = bundle.getString(BundleConstants.SURNAME);
+        String country = bundle.getString(BundleConstants.COUNTRY);
+        String homeTown = bundle.getString(BundleConstants.HOME_TOWN);
 
         return new Local(firstName, surname, country, homeTown, email);
     }
