@@ -74,7 +74,7 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
                         .addOnCompleteListener(onCompleteListener())
                         .addOnFailureListener(onFailureListener());
                }
-           } 
+           }
         }
     }
 
@@ -87,9 +87,9 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
                 SignUpAsLocalSecondStepFragment secondStepFragment = new SignUpAsLocalSecondStepFragment();
                 secondStepFragment.setArguments(buildUserBundle());
                 if(getFragmentManager() != null && task.isSuccessful()) {
-                    new Firebase().addLocalUserToFirebase(buildLocalUser());
                     getFragmentManager().beginTransaction()
                             .replace(R.id.fragment_placeholder_sign_up_as_local_activity, secondStepFragment)
+                            .addToBackStack(null)
                             .commit();
                     mProgressBar.setVisibility(View.INVISIBLE);
                 }
@@ -131,17 +131,6 @@ public class SignUpAsLocalFirstStepFragment extends Fragment implements View.OnC
                 }
             }
         });
-    }
-
-    //Build a local user object from the user inputs for signing them up
-    private Local buildLocalUser() {
-        String email = mEmail.getText().toString();
-        String firstName = mFirstName.getText().toString();
-        String surname = mSurname.getText().toString();
-        String country = mAutoCompleteCountry.getText().toString();
-        String homeTown = mHomeTown.getText().toString();
-
-        return new Local(firstName, surname, country, homeTown, email);
     }
 
     //Build a Bundle Object out of the user inputs for the second step fragment

@@ -1,9 +1,10 @@
 package com.main.meetalocal.local.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,12 +18,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.main.meetalocal.R;
+import com.main.meetalocal.Validator;
+import com.main.meetalocal.database.Firebase;
 import com.main.meetalocal.database.Local;
-
-import org.w3c.dom.Text;
 
 public class SignUpAsLocalSecondStepFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
+    private CheckBox mCheckBoxAccommodation, mCheckBoxAccompany, mCheckBoxGuidedTours;
     private EditText mLocalIntroduction;
     private Local localUser;
 
@@ -34,14 +36,14 @@ public class SignUpAsLocalSecondStepFragment extends Fragment implements Compoun
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        CheckBox checkBoxAccommodation = view.findViewById(R.id.checkbox_accommodation);
-        checkBoxAccommodation.setOnCheckedChangeListener(this);
+        mCheckBoxAccommodation = view.findViewById(R.id.checkbox_accommodation);
+        mCheckBoxAccommodation.setOnCheckedChangeListener(this);
 
-        CheckBox checkBoxAccompany = view.findViewById(R.id.checkbox_accompany);
-        checkBoxAccompany.setOnCheckedChangeListener(this);
+        mCheckBoxAccompany = view.findViewById(R.id.checkbox_accompany);
+        mCheckBoxAccompany.setOnCheckedChangeListener(this);
 
-        CheckBox checkBoxGuidedTours = view.findViewById(R.id.check_box_guided_tours);
-        checkBoxGuidedTours.setOnCheckedChangeListener(this);
+        mCheckBoxGuidedTours = view.findViewById(R.id.check_box_guided_tours);
+        mCheckBoxGuidedTours.setOnCheckedChangeListener(this);
 
         mLocalIntroduction = view.findViewById(R.id.edit_text_local_introduction);
 
@@ -71,11 +73,18 @@ public class SignUpAsLocalSecondStepFragment extends Fragment implements Compoun
 
     @Override
     public void onClick(View v) {
-        String introduction = mLocalIntroduction.getText().toString();
-        if(TextUtils.isEmpty(introduction)) {
-            localUser.setIntroduction(introduction);
+        CheckBox [] checkBoxes = { mCheckBoxGuidedTours, mCheckBoxAccompany, mCheckBoxAccommodation };
+        if(!Validator.validateLocalSignUpStepTwo(checkBoxes) && getActivity() != null) {
+            Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(100);
+            Toast.makeText(getActivity(), "Please select at least one provision", Toast.LENGTH_SHORT).show();
+        } else {
+            String introduction = mLocalIntroduction.getText().toString();
+            if(!TextUtils.isEmpty(introduction)) {
+                localUser.setIntroduction(introduction);
+            }
+            new Firebase().addLocalUserToFirebase(localUser);
         }
-
     }
 
     //Build a Local Object for the Database from Bundle and Fragment

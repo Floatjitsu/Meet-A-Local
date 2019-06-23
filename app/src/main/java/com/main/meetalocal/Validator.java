@@ -1,6 +1,7 @@
 package com.main.meetalocal;
 
 import android.text.TextUtils;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 /**
@@ -43,6 +44,17 @@ public class Validator {
             isValid = false;
             password.setError("Please pick a password!");
             passwordConfirm.setError("Please confirm your password!");
+        }
+
+        return isValid;
+    }
+
+    public static boolean validateLocalSignUpStepTwo(CheckBox [] checkBoxes) {
+        boolean isValid = false;
+        for(CheckBox checkBox : checkBoxes) {
+            if(checkBox.isChecked()) {
+                isValid = true;
+            }
         }
 
         return isValid;
