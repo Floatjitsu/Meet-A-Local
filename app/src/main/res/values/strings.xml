@@ -47,4 +47,7 @@
     <string name="country_item_country_name">Country Name</string>
     <string name="country_item_check_mark">Check Mark</string>
 
+    <!-- Profile User -->
+    <string name="profile_edit_profile">Edit Profile</string>
+
 </resources>
