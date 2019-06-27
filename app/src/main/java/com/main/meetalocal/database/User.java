@@ -4,6 +4,8 @@ public class User {
 
     private String firstName, surname, country, homeTown, email;
 
+    public User() {}
+
     public User(String firstName, String surname, String country, String homeTown, String email) {
         this.firstName = firstName;
         this.surname = surname;
@@ -30,5 +32,17 @@ public class User {
 
     public String getHomeTown() {
         return homeTown;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setHomeTown(String homeTown) {
+        this.homeTown = homeTown;
     }
 }
