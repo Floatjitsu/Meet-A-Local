@@ -23,6 +23,7 @@ import com.main.meetalocal.R;
 import com.main.meetalocal.dialog.LogoutDialog;
 import com.main.meetalocal.user.fragment.BucketListFragment;
 import com.main.meetalocal.user.fragment.HomeFragment;
+import com.main.meetalocal.user.fragment.ProfileFragment;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
 import java.util.Objects;
@@ -67,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.menu_item_bucket_list:
                 fragmentTransaction.replace(R.id.fragment_placeholder_main_activity, new BucketListFragment());
+                fragmentTransaction.commit();
+                return true;
+            case R.id.menu_item_profile:
+                fragmentTransaction.replace(R.id.fragment_placeholder_main_activity, new ProfileFragment());
                 fragmentTransaction.commit();
                 return true;
             case R.id.menu_item_logout:
