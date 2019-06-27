@@ -15,6 +15,11 @@
             android:icon="@drawable/ic_bucket_list_grey_24dp"
             android:title="@string/navigation_drawer_menu_bucket_list"/>
 
+        <item
+            android:id="@+id/menu_item_profile"
+            android:icon="@drawable/ic_person_grey_24dp"
+            android:title="@string/navigation_drawer_menu_profile"/>
+
     </group>
 
     <group
