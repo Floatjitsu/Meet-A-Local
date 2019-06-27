@@ -49,5 +49,7 @@
 
     <!-- Profile User -->
     <string name="profile_edit_profile">Edit Profile</string>
+    <string name="profile_about_introduction">User Introduction</string>
+    <string name="profile_about_languages">Speaks Languages</string>
 
 </resources>
