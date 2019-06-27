@@ -51,5 +51,9 @@
     <string name="profile_edit_profile">Edit Profile</string>
     <string name="profile_about_introduction">User Introduction</string>
     <string name="profile_about_languages">Speaks Languages</string>
+    <string name="profile_edit_your_profile">Edit your profile</string>
+    <string name="profile_edit_profile_picture">Edit profile picture</string>
+    <string name="profile_edit_profile_personal_information">Personal information</string>
+    <string name="profile_edit_about">About</string>
 
 </resources>

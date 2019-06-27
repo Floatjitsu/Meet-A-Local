@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,7 @@ import com.main.meetalocal.database.User;
 import com.main.meetalocal.user.activity.MainActivity;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private TextView mFirstName, mCountry, mHomeTown;
 
@@ -38,7 +39,15 @@ public class ProfileFragment extends Fragment {
         mCountry = view.findViewById(R.id.text_profile_country);
         mHomeTown = view.findViewById(R.id.text_profile_home_town);
 
+        ImageButton imageButtonEditProfile = view.findViewById(R.id.image_button_edit_user_profile);
+        imageButtonEditProfile.setOnClickListener(this);
+
         setUpUserProfile();
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     /**
