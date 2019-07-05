@@ -1,6 +1,5 @@
 package com.main.meetalocal.user.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.LiveData;
@@ -8,15 +7,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.main.meetalocal.R;
+import com.main.meetalocal.database.Firebase;
+import com.main.meetalocal.database.User;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
 public class EditUserProfileActivity extends AppCompatActivity {
@@ -49,12 +49,19 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        if(item.getItemId() == R.id.menu_item_edit_user_profile_save) {
+            new Firebase().updateUser(buildUserFromUi());
+            Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show();
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
      * Set the LiveData Observer for users email, first name and surname
-     *  After receiving the data the corresponding EditTexts will be assigned with values
+     * After receiving the data the corresponding EditTexts will be assigned with values
      */
     private void setUserObserver() {
         ViewModelUser viewModelUser = ViewModelProviders.of(this).get(ViewModelUser.class);
@@ -75,5 +82,16 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private User buildUserFromUi() {
+        String firstName = mFirstName.getText().toString();
+        String surname = mSurname.getText().toString();
+        String country = mCountry.getText().toString();
+        String homeTown = mHomeTown.getText().toString();
+        String languages = mLanguages.getText().toString();
+        String about = mAbout.getText().toString();
+
+        return new User(firstName, surname, country, homeTown, languages, about);
     }
 }

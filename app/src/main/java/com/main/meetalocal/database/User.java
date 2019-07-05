@@ -2,9 +2,18 @@ package com.main.meetalocal.database;
 
 public class User {
 
-    private String firstName, surname, country, homeTown, email;
+    private String firstName, surname, country, homeTown, email, about, languages;
 
     public User() {}
+
+    public User(String firstName, String surname, String country, String homeTown, String about, String languages) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.country = country;
+        this.homeTown = homeTown;
+        this.about = about;
+        this.languages = languages;
+    }
 
     public User(String firstName, String surname, String country, String homeTown, String email) {
         this.firstName = firstName;
@@ -30,7 +39,7 @@ public class User {
         return country;
     }
 
-    public String getHomeTown() {
+    String getHomeTown() {
         return homeTown;
     }
 
@@ -44,5 +53,13 @@ public class User {
 
     public void setHomeTown(String homeTown) {
         this.homeTown = homeTown;
+    }
+
+    String getAbout() {
+        return about;
+    }
+
+    String getLanguages() {
+        return languages;
     }
 }
