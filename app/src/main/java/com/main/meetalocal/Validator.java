@@ -65,4 +65,14 @@ public class Validator {
 
         return isValid;
     }
+
+    public static boolean validateSignUpLanguageInput(EditText editTextLanguages) {
+        boolean isValid = true;
+        if(editTextLanguages.getText().toString().isEmpty()) {
+            editTextLanguages.setError("Please provide at least one language you speak!");
+            isValid = false;
+        }
+
+        return isValid;
+    }
 }

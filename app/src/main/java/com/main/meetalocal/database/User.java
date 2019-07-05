@@ -62,4 +62,12 @@ public class User {
     String getLanguages() {
         return languages;
     }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public void setLanguages(String languages) {
+        this.languages = languages;
+    }
 }

@@ -6,23 +6,24 @@
     <string name="login_password">Password</string>
     <string name="login">Login</string>
 
-    <!-- SignUpActivity -->
+    <!-- Sign up -->
     <string name="sign_up">Sign Up</string>
     <string name="sign_up_first_name">First Name</string>
     <string name="sign_up_surname">Surname</string>
     <string name="sign_up_home_country">Home Country</string>
     <string name="sign_up_home_town">Home Town</string>
     <string name="sign_up_confirm_password">Confirm Password</string>
+    <string name="sign_up_introduce">Kindly introduce yourself (optional)</string>
+    <string name="sign_up_languages">Which languages do you speak?</string>
+    <string name="sign_up_next_step">Next Step</string>
 
-    <!-- Sign up as Local -->
-    <string name="sign_up_as_local_next_step">Next Step</string>
-    <string name="sign_up_as_local"><u>Sign up as a Local</u></string>
-    <string name="sign_up_as_local_introduce">Kindly introduce yourself (optional)</string>
-    <string name="sign_up_as_local_provide_options">Tell us what you want to provide</string>
-    <string name="sign_up_as_local_finish_sign_up">Finish Sign Up</string>
-    <string name="provide_option_accommodation">Accommodation</string>
-    <string name="provide_option_accompany">Accompany</string>
-    <string name="provide_option_guided_tours">Guided Tours</string>
+        <!-- Sign up as Local -->
+        <string name="sign_up_as_local"><u>Sign up as a Local</u></string>
+        <string name="sign_up_as_local_provide_options">Tell us what you want to provide</string>
+        <string name="sign_up_as_local_finish_sign_up">Finish Sign Up</string>
+        <string name="provide_option_accommodation">Accommodation</string>
+        <string name="provide_option_accompany">Accompany</string>
+        <string name="provide_option_guided_tours">Guided Tours</string>
 
     <!-- Navigation Drawer Menu -->
     <string name="navigation_drawer_menu_home">Home</string>

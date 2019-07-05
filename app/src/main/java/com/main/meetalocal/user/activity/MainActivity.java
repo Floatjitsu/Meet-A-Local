@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(documentSnapshotTask.isSuccessful()) {
                     DocumentSnapshot snapshot = documentSnapshotTask.getResult();
                     if(snapshot != null) {
-                        userEmail.setText(Objects.requireNonNull(snapshot.get("email")).toString());
+                        userEmail.setText(snapshot.getString("email"));
                         String firstNameSurname = snapshot.get("firstName") + " " + snapshot.get("surname");
                         userFirstNameSurname.setText(firstNameSurname);
                     }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -13,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/textColor"
-        android:text="@string/sign_up_as_local_provide_options"
+        android:text="@string/sign_up_introduce"
         android:layout_marginTop="5dp"/>
 
     <View
@@ -22,74 +21,8 @@
         android:background="@color/colorSecondary"
         android:layout_marginTop="2dp"/>
 
-    <TableLayout
-        android:id="@+id/table_layout_provide_options"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp">
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/textColor"
-                android:textSize="18sp"
-                android:text="@string/provide_option_accommodation" />
-
-            <CheckBox
-                android:id="@+id/checkbox_accommodation"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/textColor"
-                android:textSize="18sp"
-                android:text="@string/provide_option_accompany" />
-
-            <CheckBox
-                android:id="@+id/checkbox_accompany"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/textColor"
-                android:textSize="18sp"
-                android:text="@string/provide_option_guided_tours" />
-
-            <CheckBox
-                android:id="@+id/check_box_guided_tours"/>
-
-        </TableRow>
-
-    </TableLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
-        android:layout_marginTop="10dp"
-        android:text="@string/sign_up_introduce"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorSecondary"
-        android:layout_marginTop="2dp"/>
-
     <EditText
-        android:id="@+id/edit_text_local_introduction"
+        android:id="@+id/edit_text_introduction"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/colorPrimary"
@@ -103,11 +36,33 @@
         tools:ignore="Autofill,LabelFor"
         android:gravity="top|start"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:text="@string/sign_up_languages"
+        android:layout_marginTop="5dp"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorSecondary"
         android:layout_marginTop="2dp"/>
+
+    <EditText
+        android:id="@+id/edit_text_languages"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="5dp"
+        android:inputType="textCapSentences|textMultiLine"
+        android:textSize="16sp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:textColor="@color/textColor"
+        android:focusable="true"
+        tools:ignore="Autofill,LabelFor"
+        android:gravity="top|start"/>
 
     <ProgressBar
         android:id="@+id/progress_bar_horizontal"
@@ -128,5 +83,6 @@
         android:background="@drawable/button"
         android:fontFamily="@font/nunito_bold"
         android:text="@string/sign_up_as_local_finish_sign_up"/>
+
 
 </LinearLayout>
