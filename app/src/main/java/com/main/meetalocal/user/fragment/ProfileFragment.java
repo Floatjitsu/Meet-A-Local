@@ -26,7 +26,7 @@ import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
-    private TextView mFirstName, mCountry, mHomeTown;
+    private TextView mFirstName, mCountry, mHomeTown, mAbout, mLanguages;
 
     @Nullable
     @Override
@@ -41,6 +41,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mFirstName = view.findViewById(R.id.text_profile_first_name);
         mCountry = view.findViewById(R.id.text_profile_country);
         mHomeTown = view.findViewById(R.id.text_profile_home_town);
+        mAbout = view.findViewById(R.id.text_profile_user_about);
+        mLanguages = view.findViewById(R.id.text_profile_languages);
 
         ImageButton imageButtonEditProfile = view.findViewById(R.id.image_button_edit_user_profile);
         imageButtonEditProfile.setOnClickListener(this);
@@ -60,7 +62,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
      * and populate them with the layout views
      */
     private void setUpUserProfile() {
-        final User user = new User();
         if(getActivity() != null) {
             ViewModelUser viewModelUser = ViewModelProviders.of(getActivity()).get(ViewModelUser.class);
             LiveData<Task<DocumentSnapshot>> liveData = viewModelUser.getDataSnapshotLiveData();
@@ -70,24 +71,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if(documentSnapshotTask.isSuccessful()) {
                         DocumentSnapshot snapshot = documentSnapshotTask.getResult();
                         if(snapshot != null) {
-                            user.setCountry(snapshot.getString("country"));
-                            user.setFirstName(snapshot.getString("firstName"));
-                            user.setHomeTown(snapshot.getString("homeTown"));
-                            setUpUserProfile(user);
+                            mFirstName.setText(snapshot.getString("firstName"));
+                            mCountry.setText(snapshot.getString("country"));
+                            mHomeTown.setText(snapshot.getString("homeTown"));
+                            mAbout.setText(snapshot.getString("about"));
+                            mLanguages.setText(snapshot.getString("languages"));
                         }
                     }
                 }
             });
         }
-    }
-
-    /**
-     * Populate data from the view model with layout views
-     * @param user the user object with the proper data inside
-     */
-    private void setUpUserProfile(User user) {
-        mFirstName.setText(user.getFirstName());
-        mCountry.setText(user.getCountry());
-        mHomeTown.setText(user.getHomeTown());
     }
 }

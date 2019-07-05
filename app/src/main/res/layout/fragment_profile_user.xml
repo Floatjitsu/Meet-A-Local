@@ -100,7 +100,7 @@
         android:contentDescription="@string/profile_about_introduction"/>
 
     <TextView
-        android:id="@+id/text_profile_user_introduction"
+        android:id="@+id/text_profile_user_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/view_line_separator_2"
@@ -114,9 +114,10 @@
         app:layout_constrainedWidth="true"/>
 
     <TextView
+        android:id="@+id/text_profile_languages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/text_profile_user_introduction"
+        app:layout_constraintTop_toBottomOf="@id/text_profile_user_about"
         android:layout_marginTop="10dp"
         android:textSize="16sp"
         android:textColor="@color/textColor"
