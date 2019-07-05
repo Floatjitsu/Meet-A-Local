@@ -37,10 +37,11 @@ public class LoginActivity extends AppCompatActivity {
         mFullscreenDialog.setContentView(R.layout.dialog_full_screen_login);
 
         mAuth = new Authentication();
-/*
+
+        //This won't work if user is a local for now
         if(mAuth.getCurrentUser() != null) {
             startActivity(new Intent(this, MainActivity.class));
-        } */
+        }
     }
 
     @Override
