@@ -1,5 +1,6 @@
 package com.main.meetalocal.user.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.main.meetalocal.BundleConstants;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.User;
+import com.main.meetalocal.user.activity.EditUserProfileActivity;
 import com.main.meetalocal.user.activity.MainActivity;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
@@ -47,7 +50,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        if(v.getId() == R.id.image_button_edit_user_profile) {
+            startActivity(new Intent(getActivity(), EditUserProfileActivity.class));
+        }
     }
 
     /**

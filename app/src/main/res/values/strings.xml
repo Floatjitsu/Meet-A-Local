@@ -55,5 +55,6 @@
     <string name="profile_edit_profile_picture">Edit profile picture</string>
     <string name="profile_edit_profile_personal_information">Personal information</string>
     <string name="profile_edit_about">About</string>
+    <string name="profile_edit_languages">Languages</string>
 
 </resources>
