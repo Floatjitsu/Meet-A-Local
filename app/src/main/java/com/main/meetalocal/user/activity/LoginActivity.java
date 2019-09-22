@@ -38,10 +38,9 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = new Authentication();
 
-        /*This won't work if user is a local for now
         if(mAuth.getCurrentUser() != null) {
             startActivity(new Intent(this, MainActivity.class));
-        } */
+        }
     }
 
     @Override

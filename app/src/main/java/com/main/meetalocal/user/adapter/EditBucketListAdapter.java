@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.CountryModel;
+import com.main.meetalocal.database.Firebase;
 import com.main.meetalocal.database.room.BucketListCountry;
 import com.main.meetalocal.user.viewmodel.BucketListViewModel;
 
@@ -54,6 +55,7 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
         StorageReference ref = storageReference.child(countries.get(position).getRoundedFlagPath());
         GlideApp.with(activityContext).load(ref).into(holder.countryFlag);
 
+        /*
         //Check if the country already exists in the users bucket list and toggle the check mark
         bucketListViewModel.countryCount(countries.get(position).getCountryName())
                 .observe((FragmentActivity) activityContext, new Observer<Integer>() {
@@ -65,7 +67,7 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
                             holder.checkMark.setVisibility(View.INVISIBLE);
                         }
                     }
-                });
+                }); */
     }
 
     /**
@@ -112,12 +114,9 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
             if(checkMark.getVisibility() == View.INVISIBLE) {
                 checkMark.setVisibility(View.VISIBLE);
                 //Insert the new country and show success message
-                bucketListViewModel.insert(new BucketListCountry(countryName.getText().toString()));
-                Toast.makeText(activityContext,
-                        "Added " + country + " to your Bucket List!",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                new Firebase().addCountryToBucketList(country);
             } else { //Country exists in bucket list
+                /*
                 checkMark.setVisibility(View.INVISIBLE);
                 //Delete the country and show success message
                 bucketListViewModel.delete(new BucketListCountry(countryName.getText().toString()));
@@ -125,6 +124,8 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
                         "Deleted " + country + " from your Bucket List!",
                         Toast.LENGTH_SHORT)
                         .show();
+
+                 */
             }
         }
     }
