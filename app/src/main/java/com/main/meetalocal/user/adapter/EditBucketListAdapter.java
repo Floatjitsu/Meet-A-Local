@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.storage.FirebaseStorage;
@@ -19,7 +18,6 @@ import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.CountryModel;
 import com.main.meetalocal.database.Firebase;
-import com.main.meetalocal.database.room.BucketListCountry;
 import com.main.meetalocal.user.viewmodel.BucketListViewModel;
 
 import java.util.ArrayList;
@@ -31,6 +29,7 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
     private StorageReference storageReference;
     private ArrayList<CountryModel> countries;
     private ArrayList<CountryModel> countriesCopy; //For filtering the RecyclerView
+    private Firebase firebase;
 
     public EditBucketListAdapter(ArrayList<CountryModel> countries, Context activityContext) {
         this.countries = countries;
@@ -39,6 +38,7 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
         countriesCopy = new ArrayList<>();
         countriesCopy.addAll(countries);
         bucketListViewModel = ViewModelProviders.of((FragmentActivity) activityContext).get(BucketListViewModel.class);
+        firebase = new Firebase();
     }
 
     @NonNull
@@ -114,18 +114,20 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
             if(checkMark.getVisibility() == View.INVISIBLE) {
                 checkMark.setVisibility(View.VISIBLE);
                 //Insert the new country and show success message
-                new Firebase().addCountryToBucketList(country);
+                firebase.addCountryToBucketList(country);
+                Toast.makeText(activityContext,
+                        "Added " + country + " to your Bucket List!",
+                        Toast.LENGTH_SHORT)
+                        .show();
             } else { //Country exists in bucket list
-                /*
                 checkMark.setVisibility(View.INVISIBLE);
                 //Delete the country and show success message
-                bucketListViewModel.delete(new BucketListCountry(countryName.getText().toString()));
+                firebase.removeCountryFromBucketList(country);
                 Toast.makeText(activityContext,
-                        "Deleted " + country + " from your Bucket List!",
+                        "Removed " + country + " from your Bucket List!",
                         Toast.LENGTH_SHORT)
                         .show();
 
-                 */
             }
         }
     }

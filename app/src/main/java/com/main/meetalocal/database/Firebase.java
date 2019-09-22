@@ -76,11 +76,11 @@ public class Firebase {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Read all the countries which are already there,
-                // add the new one and update the whole list
+                //add the new one and update the whole list
                 ArrayList<String> bucketList = new ArrayList<>();
-                for(DataSnapshot countries : dataSnapshot.getChildren()) {
-                    if(countries.getValue() != null)
-                        bucketList.add(countries.getValue().toString());
+                for(DataSnapshot country : dataSnapshot.getChildren()) {
+                    if(country.getValue() != null)
+                        bucketList.add(country.getValue().toString());
                 }
                 bucketList.add(countryName);
                 bucketListRef.setValue(bucketList);
@@ -89,6 +89,35 @@ public class Firebase {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 //No need for the onCancelled listener
+            }
+        });
+    }
+
+    /**
+     * Removes a country from the personal bucket list of the current user
+     * @param countryName the country to be removed
+     */
+    public void removeCountryFromBucketList(final String countryName) {
+        final DatabaseReference bucketListRef = realtimeDatabase.getReference(BUCKET_LIST_PATH)
+                .child(new Authentication().getCurrentUserUid());
+        bucketListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Read all countries which are already there,
+                //and delete the correct country
+                ArrayList<String> bucketList = new ArrayList<>();
+                for(DataSnapshot country : dataSnapshot.getChildren()) {
+                    if(country.getValue() != null)
+                        bucketList.add(country.getValue().toString());
+                }
+                bucketList.remove(countryName);
+                bucketListRef.setValue(bucketList);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
