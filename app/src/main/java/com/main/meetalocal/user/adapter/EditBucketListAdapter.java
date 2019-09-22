@@ -12,21 +12,29 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
+import com.main.meetalocal.database.Authentication;
 import com.main.meetalocal.database.CountryModel;
 import com.main.meetalocal.database.Firebase;
 import com.main.meetalocal.user.viewmodel.BucketListViewModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAdapter.ViewHolder> {
 
-    private BucketListViewModel bucketListViewModel;
     private Context activityContext;
     private StorageReference storageReference;
+    private ArrayList<String> bucketList;
     private ArrayList<CountryModel> countries;
     private ArrayList<CountryModel> countriesCopy; //For filtering the RecyclerView
     private Firebase firebase;
@@ -37,8 +45,24 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
         storageReference = FirebaseStorage.getInstance().getReference("/images/country_flags/");
         countriesCopy = new ArrayList<>();
         countriesCopy.addAll(countries);
-        bucketListViewModel = ViewModelProviders.of((FragmentActivity) activityContext).get(BucketListViewModel.class);
         firebase = new Firebase();
+        bucketList = new ArrayList<>();
+
+        //Add all countries from the users current Bucket List to bucketList
+        DatabaseReference bucketListReference = FirebaseDatabase.getInstance().getReference("bucketLists");
+        bucketListReference.child(new Authentication().getCurrentUserUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot country : dataSnapshot.getChildren()) {
+                    if(country.getValue() != null)
+                        bucketList.add(country.getValue().toString());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @NonNull
@@ -55,19 +79,12 @@ public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAd
         StorageReference ref = storageReference.child(countries.get(position).getRoundedFlagPath());
         GlideApp.with(activityContext).load(ref).into(holder.countryFlag);
 
-        /*
-        //Check if the country already exists in the users bucket list and toggle the check mark
-        bucketListViewModel.countryCount(countries.get(position).getCountryName())
-                .observe((FragmentActivity) activityContext, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(Integer integer) {
-                        if(integer > 0) {
-                            holder.checkMark.setVisibility(View.VISIBLE);
-                        } else {
-                            holder.checkMark.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                }); */
+        //Check if a country already is in the users bucket list and toggle the check mark
+        if(bucketList.contains(countries.get(position).getCountryName())){
+            holder.checkMark.setVisibility(View.VISIBLE);
+        } else {
+            holder.checkMark.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**
