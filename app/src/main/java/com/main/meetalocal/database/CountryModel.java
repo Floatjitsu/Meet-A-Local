@@ -6,6 +6,10 @@ public class CountryModel {
 
     CountryModel() {}
 
+    public CountryModel(String countryName) {
+        this.countryName = countryName;
+    }
+
     public CountryModel(String countryName, String roundedFlagPath) {
         this.countryName = countryName;
         this.roundedFlagPath = roundedFlagPath;

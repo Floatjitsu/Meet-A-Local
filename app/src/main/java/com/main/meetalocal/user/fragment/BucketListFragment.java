@@ -15,17 +15,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.main.meetalocal.R;
+import com.main.meetalocal.database.Authentication;
+import com.main.meetalocal.database.CountryModel;
 import com.main.meetalocal.user.activity.EditBucketListActivity;
 import com.main.meetalocal.user.adapter.BucketListAdapter;
 import com.main.meetalocal.database.room.BucketListCountry;
 import com.main.meetalocal.user.viewmodel.BucketListViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BucketListFragment extends Fragment implements View.OnClickListener {
 
-    private BucketListViewModel mBucketListViewModel;
     private RecyclerView mRecyclerViewBucketList;
     private BucketListAdapter mBucketListAdapter;
 
@@ -41,17 +48,27 @@ public class BucketListFragment extends Fragment implements View.OnClickListener
 
         mRecyclerViewBucketList = view.findViewById(R.id.recycler_view_bucket_list);
         mRecyclerViewBucketList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        /*
-        if(getActivity() != null) {
-            mBucketListViewModel = ViewModelProviders.of(getActivity()).get(BucketListViewModel.class);
-            mBucketListViewModel.getBucketList().observe(getActivity(), new Observer<List<BucketListCountry>>() {
-                @Override
-                public void onChanged(List<BucketListCountry> bucketListCountries) {
-                    mBucketListAdapter = new BucketListAdapter(bucketListCountries, getActivity());
-                    mRecyclerViewBucketList.setAdapter(mBucketListAdapter);
+
+        //Search for the current users bucket List and build the RecyclerView with the found items
+        DatabaseReference bucketListRef = FirebaseDatabase.getInstance().getReference("bucketLists")
+                .child(new Authentication().getCurrentUserUid());
+        bucketListRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<String> bucketList = new ArrayList<>();
+                for(DataSnapshot country : dataSnapshot.getChildren()) {
+                    if(country.getValue() != null)
+                        bucketList.add(country.getValue().toString());
                 }
-            });
-        } */
+                mBucketListAdapter = new BucketListAdapter(bucketList, getActivity());
+                mRecyclerViewBucketList.setAdapter(mBucketListAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         FloatingActionButton editBucketListButton = view.findViewById(R.id.button_edit_bucket_list);
         editBucketListButton.setOnClickListener(this);
@@ -62,10 +79,5 @@ public class BucketListFragment extends Fragment implements View.OnClickListener
         if(v.getId() == R.id.button_edit_bucket_list) {
             startActivity(new Intent(getActivity(), EditBucketListActivity.class));
         }
-    }
-
-    private void insertCountry(String countryName) {
-        BucketListCountry bucketListCountry = new BucketListCountry(countryName);
-        mBucketListViewModel.insert(bucketListCountry);
     }
 }

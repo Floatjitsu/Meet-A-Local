@@ -19,18 +19,17 @@ import com.google.firebase.storage.StorageReference;
 import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.CountryModel;
-import com.main.meetalocal.database.room.BucketListCountry;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.ViewHolder> {
 
     private CollectionReference firebaseReference;
     private StorageReference storageReference;
-    private List<BucketListCountry> countries;
+    private ArrayList<String> countries;
     private Context activityContext;
 
-    public BucketListAdapter(List<BucketListCountry> countries, Context activityContext) {
+    public BucketListAdapter(ArrayList<String> countries, Context activityContext) {
         this.countries = countries;
         this.activityContext = activityContext;
         firebaseReference = FirebaseFirestore.getInstance().collection("countries");
@@ -47,7 +46,7 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String countryName = countries.get(position).getCountryName();
+        String countryName = countries.get(position);
         holder.countryName.setText(countryName);
         firebaseReference.document(countryName.toLowerCase()).get().addOnSuccessListener(successListener(holder.countryFlag));
     }
