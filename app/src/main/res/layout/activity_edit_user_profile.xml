@@ -40,7 +40,8 @@
                 android:background="@null"
                 android:src="@drawable/ic_edit_grey_24dp"
                 android:layout_marginStart="8dp"
-                android:contentDescription="@string/profile_edit_profile_picture"/>
+                android:contentDescription="@string/profile_edit_profile_picture"
+                android:onClick="onEditProfilePicture"/>
 
             <TextView
                 android:id="@+id/text_edit_profile_first_name"

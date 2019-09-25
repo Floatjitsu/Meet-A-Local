@@ -1,14 +1,23 @@
 package com.main.meetalocal.user.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,9 +28,16 @@ import com.main.meetalocal.database.Firebase;
 import com.main.meetalocal.database.User;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
+import java.io.FileDescriptor;
+import java.io.IOException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class EditUserProfileActivity extends AppCompatActivity {
 
+    private static final int READ_REQUEST_CODE = 42;
     EditText mFirstName, mSurname, mCountry, mHomeTown, mAbout, mLanguages;
+    CircleImageView mProfilePicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +50,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mHomeTown = findViewById(R.id.edit_text_edit_home_town);
         mAbout = findViewById(R.id.edit_text_edit_about);
         mLanguages = findViewById(R.id.edit_text_edit_languages);
+        mProfilePicture = findViewById(R.id.image_edit_profile_picture);
 
         Toolbar editProfileToolbar = findViewById(R.id.toolbar_edit_user_profile_activity);
         setSupportActionBar(editProfileToolbar);
@@ -56,6 +73,18 @@ public class EditUserProfileActivity extends AppCompatActivity {
             return true;
         } else {
             return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri uri = null;
+            if(data != null) {
+                uri = data.getData();
+                new CreateBitmapTask().execute(uri);
+            }
         }
     }
 
@@ -84,6 +113,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         });
     }
 
+    //Build a User object from UI Elements to update a profile
     private User buildUserFromUi() {
         String firstName = mFirstName.getText().toString();
         String surname = mSurname.getText().toString();
@@ -93,5 +123,48 @@ public class EditUserProfileActivity extends AppCompatActivity {
         String about = mAbout.getText().toString();
 
         return new User(firstName, surname, country, homeTown, languages, about);
+    }
+
+    //Event Handler to select a new profile picture
+    public void onEditProfilePicture(View view) {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        startActivityForResult(intent, READ_REQUEST_CODE);
+    }
+
+    private class CreateBitmapTask extends AsyncTask<Uri, Void, Bitmap> {
+
+        @Override
+        protected Bitmap doInBackground(Uri... uris) {
+            try {
+                //Only one Uri will get converted
+                return getBitmapFromUri(uris[0]);
+            } catch (IOException ex) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if(bitmap != null) {
+                mProfilePicture.setImageBitmap(bitmap);
+            } else {
+                Toast.makeText(EditUserProfileActivity.this, "Couldn't pick image, please try again", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        //Create a Bitmap out of a given uri to show it in a ImageView
+        Bitmap getBitmapFromUri(Uri uri) throws IOException {
+            ParcelFileDescriptor parcelFileDescriptor =
+                    getContentResolver().openFileDescriptor(uri, "r");
+            if(parcelFileDescriptor != null) {
+                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+                Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+                parcelFileDescriptor.close();
+                return image;
+            }
+            return null;
+        }
     }
 }
