@@ -1,5 +1,7 @@
 package com.main.meetalocal.database;
 
+import android.net.Uri;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,5 +42,11 @@ public class Authentication {
     public void logInUser(String email, String password, OnCompleteListener<AuthResult> listener) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(listener);
+    }
+
+    public void setCurrentUserPhotoUrl(Uri photoUrl) {
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setPhotoUri(photoUrl)
+                .build();
     }
 }

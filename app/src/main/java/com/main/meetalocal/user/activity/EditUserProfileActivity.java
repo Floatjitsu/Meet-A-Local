@@ -1,5 +1,6 @@
 package com.main.meetalocal.user.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,10 +8,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,15 +22,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.main.meetalocal.R;
+import com.main.meetalocal.database.Authentication;
 import com.main.meetalocal.database.Firebase;
 import com.main.meetalocal.database.User;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
@@ -38,6 +48,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     EditText mFirstName, mSurname, mCountry, mHomeTown, mAbout, mLanguages;
     CircleImageView mProfilePicture;
+    Uri profilePicturePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +78,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.menu_item_edit_user_profile_save) {
-            new Firebase().updateUser(buildUserFromUi());
+            updateUser();
             Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show();
             finish();
             return true;
@@ -80,10 +91,10 @@ public class EditUserProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Uri uri = null;
+            profilePicturePath = null;
             if(data != null) {
-                uri = data.getData();
-                new CreateBitmapTask().execute(uri);
+                profilePicturePath = data.getData();
+                new CreateBitmapTask().execute(profilePicturePath);
             }
         }
     }
@@ -133,6 +144,23 @@ public class EditUserProfileActivity extends AppCompatActivity {
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
 
+    private void updateUser() {
+        //Update User in Firebase Firestore DB
+        new Firebase().updateUser(buildUserFromUi());
+        //Upload the Image to the Firebase Storage
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference profilePicRef = storageReference.child("profile_pictures")
+                .child(new Authentication().getCurrentUserUid() + ".jpg");
+        profilePicRef.putFile(profilePicturePath);
+        //Update Users Profile Photo Url
+        new Authentication().setCurrentUserPhotoUrl(profilePicturePath);
+    }
+
+
+    /**
+     * AsyncTask to display a Image from the storage as a new profile picture
+     */
+    @SuppressLint("StaticFieldLeak")
     private class CreateBitmapTask extends AsyncTask<Uri, Void, Bitmap> {
 
         @Override
