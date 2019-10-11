@@ -138,7 +138,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         String languages = mLanguages.getText().toString();
         String about = mAbout.getText().toString();
 
-        return new User(firstName, surname, country, homeTown, languages, about);
+        return new User(firstName, surname, country, homeTown, about, languages);
     }
 
     //Event Handler to select a new profile picture
