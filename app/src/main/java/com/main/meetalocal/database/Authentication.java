@@ -44,9 +44,15 @@ public class Authentication {
                 .addOnCompleteListener(listener);
     }
 
+    public Uri getCurrentUserPhotoUrl() {
+        return currentUser.getPhotoUrl();
+    }
+
     public void setCurrentUserPhotoUrl(Uri photoUrl) {
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(photoUrl)
                 .build();
+
+        currentUser.updateProfile(profileUpdates);
     }
 }

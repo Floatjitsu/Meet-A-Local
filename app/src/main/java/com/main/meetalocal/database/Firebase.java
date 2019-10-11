@@ -62,6 +62,10 @@ public class Firebase {
         update.put("about", user.getAbout());
         update.put("languages", user.getLanguages());
 
+        if(user.getPhotoUri() != null) {
+            update.put("photoUri", user.getPhotoUri());
+        }
+
         firestoreDatabase.collection(USER_PATH).document(new Authentication().getCurrentUserUid())
                 .set(update, SetOptions.merge());
     }

@@ -76,6 +76,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                             mHomeTown.setText(snapshot.getString("homeTown"));
                             mAbout.setText(snapshot.getString("about"));
                             mLanguages.setText(snapshot.getString("languages"));
+                            //TODO: Load users profile picture
                         }
                     }
                 }

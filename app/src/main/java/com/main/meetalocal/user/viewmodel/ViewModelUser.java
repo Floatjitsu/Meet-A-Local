@@ -22,5 +22,4 @@ public class ViewModelUser extends ViewModel {
         return LIVE_DATA;
     }
 
-
 }

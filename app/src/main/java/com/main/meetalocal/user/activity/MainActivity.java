@@ -1,5 +1,6 @@
 package com.main.meetalocal.user.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +20,11 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
+import com.main.meetalocal.database.Authentication;
 import com.main.meetalocal.dialog.LogoutDialog;
 import com.main.meetalocal.user.fragment.BucketListFragment;
 import com.main.meetalocal.user.fragment.HomeFragment;
@@ -27,6 +32,8 @@ import com.main.meetalocal.user.fragment.ProfileFragment;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -102,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View drawerHeader = mNavigationView.getHeaderView(HEADER_INDEX);
         final TextView userEmailHeader = drawerHeader.findViewById(R.id.text_navigation_header_email);
         final TextView userFirstNameSurnameHeader = drawerHeader.findViewById(R.id.text_navigation_header_names);
+        final CircleImageView userProfilePicture = drawerHeader.findViewById(R.id.image_navigation_header_profile_picture);
+        setUserProfilePicture(userProfilePicture);
         setUserObserver(userEmailHeader, userFirstNameSurnameHeader);
     }
 
@@ -127,6 +136,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+    }
+
+    private void setUserProfilePicture(CircleImageView userProfilePicture) {
+        Authentication authentication = new Authentication();
+        if(authentication.getCurrentUserPhotoUrl() != null) {
+            StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("profile_pictures")
+                    .child(new Authentication().getCurrentUserPhotoUrl().toString());
+            GlideApp.with(this).load(profilePicRef).into(userProfilePicture);
+        }
     }
 
     /**

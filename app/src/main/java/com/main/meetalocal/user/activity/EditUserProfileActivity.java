@@ -1,6 +1,5 @@
 package com.main.meetalocal.user.activity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,7 +12,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,22 +20,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.Authentication;
 import com.main.meetalocal.database.Firebase;
 import com.main.meetalocal.database.User;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
@@ -79,6 +73,10 @@ public class EditUserProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.menu_item_edit_user_profile_save) {
             updateUser();
+            //upload new picture only if user selected a new one
+            if(profilePicturePath != null) {
+                uploadNewProfilePicture();
+            }
             Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show();
             finish();
             return true;
@@ -100,7 +98,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * Set the LiveData Observer for users email, first name and surname
+     * Set the LiveData Observer for users profile
      * After receiving the data the corresponding EditTexts will be assigned with values
      */
     private void setUserObserver() {
@@ -118,6 +116,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         mHomeTown.setText(snapshot.getString("homeTown"));
                         mAbout.setText(snapshot.getString("about"));
                         mLanguages.setText(snapshot.getString("languages"));
+                        //TODO: Load profile picture of user
                     }
                 }
             }
@@ -144,16 +143,22 @@ public class EditUserProfileActivity extends AppCompatActivity {
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
 
+    //Update User in Firebase Firestore DB
     private void updateUser() {
-        //Update User in Firebase Firestore DB
-        new Firebase().updateUser(buildUserFromUi());
-        //Upload the Image to the Firebase Storage
+        User user = buildUserFromUi();
+        if(profilePicturePath != null) {
+            user.setPhotoUri(new Authentication().getCurrentUserUid() + "_" +
+                    profilePicturePath.getLastPathSegment() + ".jpg");
+        }
+        new Firebase().updateUser(user);
+    }
+
+    //Upload the Image to the Firebase Storage
+    private void uploadNewProfilePicture() {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference profilePicRef = storageReference.child("profile_pictures")
-                .child(new Authentication().getCurrentUserUid() + ".jpg");
+                .child(new Authentication().getCurrentUserUid() + "_" + profilePicturePath.getLastPathSegment() + ".jpg");
         profilePicRef.putFile(profilePicturePath);
-        //Update Users Profile Photo Url
-        new Authentication().setCurrentUserPhotoUrl(profilePicturePath);
     }
 
 

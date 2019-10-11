@@ -23,7 +23,7 @@ public class User {
         this.email = email;
     }
 
-    public String getPhotoUri() {
+    String getPhotoUri() {
         return photoUri;
     }
 
