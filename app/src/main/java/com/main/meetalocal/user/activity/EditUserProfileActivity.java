@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.Authentication;
 import com.main.meetalocal.database.Firebase;
@@ -34,6 +35,7 @@ import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -116,7 +118,11 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         mHomeTown.setText(snapshot.getString("homeTown"));
                         mAbout.setText(snapshot.getString("about"));
                         mLanguages.setText(snapshot.getString("languages"));
-                        //TODO: Load profile picture of user
+                        if(snapshot.getString("photoUri") != null) {
+                            StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("profile_pictures")
+                                    .child(Objects.requireNonNull(snapshot.getString("photoUri")));
+                            GlideApp.with(getApplicationContext()).load(profilePicRef).into(mProfilePicture);
+                        }
                     }
                 }
             }

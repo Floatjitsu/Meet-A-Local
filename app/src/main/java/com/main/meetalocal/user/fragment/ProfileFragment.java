@@ -17,16 +17,24 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.main.meetalocal.BundleConstants;
+import com.main.meetalocal.GlideApp;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.User;
 import com.main.meetalocal.user.activity.EditUserProfileActivity;
 import com.main.meetalocal.user.activity.MainActivity;
 import com.main.meetalocal.user.viewmodel.ViewModelUser;
 
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private TextView mFirstName, mCountry, mHomeTown, mAbout, mLanguages;
+    private CircleImageView mProfilePicture;
 
     @Nullable
     @Override
@@ -43,6 +51,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mHomeTown = view.findViewById(R.id.text_profile_home_town);
         mAbout = view.findViewById(R.id.text_profile_user_about);
         mLanguages = view.findViewById(R.id.text_profile_languages);
+        mProfilePicture = view.findViewById(R.id.image_profile_picture);
 
         ImageButton imageButtonEditProfile = view.findViewById(R.id.image_button_edit_user_profile);
         imageButtonEditProfile.setOnClickListener(this);
@@ -76,7 +85,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                             mHomeTown.setText(snapshot.getString("homeTown"));
                             mAbout.setText(snapshot.getString("about"));
                             mLanguages.setText(snapshot.getString("languages"));
-                            //TODO: Load users profile picture
+                            if(snapshot.getString("photoUri") != null && getActivity() != null) {
+                                StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("profile_pictures")
+                                        .child(Objects.requireNonNull(snapshot.getString("photoUri")));
+                                GlideApp.with(getActivity()).load(profilePicRef).into(mProfilePicture);
+                            }
                         }
                     }
                 }
