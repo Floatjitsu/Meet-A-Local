@@ -47,7 +47,7 @@ public class User {
         return country;
     }
 
-    String getHomeTown() {
+    public String getHomeTown() {
         return homeTown;
     }
 
@@ -63,11 +63,11 @@ public class User {
         this.homeTown = homeTown;
     }
 
-    String getAbout() {
+    public String getAbout() {
         return about;
     }
 
-    String getLanguages() {
+    public String getLanguages() {
         return languages;
     }
 
