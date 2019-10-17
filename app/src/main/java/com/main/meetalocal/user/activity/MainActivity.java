@@ -1,6 +1,5 @@
 package com.main.meetalocal.user.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -110,17 +109,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final TextView userEmailHeader = drawerHeader.findViewById(R.id.text_navigation_header_email);
         final TextView userFirstNameSurnameHeader = drawerHeader.findViewById(R.id.text_navigation_header_names);
         final CircleImageView userProfilePicture = drawerHeader.findViewById(R.id.image_navigation_header_profile_picture);
-        setUserProfilePicture(userProfilePicture);
-        setUserObserver(userEmailHeader, userFirstNameSurnameHeader);
+        //setUserProfilePicture(userProfilePicture);
+        setUserObserver(userEmailHeader, userFirstNameSurnameHeader, userProfilePicture);
     }
 
     /**
-     * Set the LiveData Observer for users email, first name and surname
-     * After receiving the data the corresponding TextViews will be assigned with values
+     * Set the LiveData Observer for users email, first name, surname and profile picture
+     * After receiving the data the corresponding TextViews and CircleImageView will be assigned with values
      * @param userEmail TextView for the users email
      * @param userFirstNameSurname TextView for the users first- and surname
+     * @param userProfilePicture CircleImageView for the profile picture
      */
-    private void setUserObserver(final TextView userEmail, final TextView userFirstNameSurname) {
+    private void setUserObserver(final TextView userEmail, final TextView userFirstNameSurname, final CircleImageView userProfilePicture) {
         ViewModelUser viewModelUser = ViewModelProviders.of(this).get(ViewModelUser.class);
         LiveData<Task<DocumentSnapshot>> liveData = viewModelUser.getDataSnapshotLiveData();
         liveData.observe(this, new Observer<Task<DocumentSnapshot>>() {
@@ -132,6 +132,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         userEmail.setText(snapshot.getString("email"));
                         String firstNameSurname = snapshot.get("firstName") + " " + snapshot.get("surname");
                         userFirstNameSurname.setText(firstNameSurname);
+                        if(snapshot.getString("photoUri") != null) {
+                            StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("profile_pictures")
+                                .child(Objects.requireNonNull(snapshot.getString("photoUri")));
+                            GlideApp.with(getApplicationContext()).load(profilePicRef).into(userProfilePicture);
+                        }
                     }
                 }
             }
