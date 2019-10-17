@@ -21,6 +21,7 @@ import com.main.meetalocal.R;
 import com.main.meetalocal.database.CountryModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.ViewHolder> {
 
@@ -34,6 +35,7 @@ public class BucketListAdapter extends RecyclerView.Adapter<BucketListAdapter.Vi
         this.activityContext = activityContext;
         firebaseReference = FirebaseFirestore.getInstance().collection("countries");
         storageReference = FirebaseStorage.getInstance().getReference("/images/country_flags/");
+        Collections.sort(countries);
     }
 
     @NonNull
