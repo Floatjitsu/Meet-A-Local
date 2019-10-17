@@ -2,6 +2,7 @@ package com.main.meetalocal.user.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,14 +24,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.main.meetalocal.R;
 import com.main.meetalocal.database.Authentication;
-import com.main.meetalocal.database.CountryModel;
 import com.main.meetalocal.user.activity.EditBucketListActivity;
 import com.main.meetalocal.user.adapter.BucketListAdapter;
-import com.main.meetalocal.database.room.BucketListCountry;
 import com.main.meetalocal.user.viewmodel.BucketListViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class BucketListFragment extends Fragment implements View.OnClickListener {
 
@@ -49,24 +49,24 @@ public class BucketListFragment extends Fragment implements View.OnClickListener
         mRecyclerViewBucketList = view.findViewById(R.id.recycler_view_bucket_list);
         mRecyclerViewBucketList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //Search for the current users bucket List and build the RecyclerView with the found items
-        DatabaseReference bucketListRef = FirebaseDatabase.getInstance().getReference("bucketLists")
-                .child(new Authentication().getCurrentUserUid());
-        bucketListRef.addValueEventListener(new ValueEventListener() {
+        //Create BucketListViewModel and liveData to observe the users bucketList
+        BucketListViewModel bucketListViewModel = ViewModelProviders.of(this).get(BucketListViewModel.class);
+        LiveData<DataSnapshot> liveData = bucketListViewModel.getDataSnapshotLiveData();
+
+        liveData.observe(this, new Observer<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onChanged(DataSnapshot dataSnapshot) {
+                Log.d("LIVE_DATA", "live data call works");
                 ArrayList<String> bucketList = new ArrayList<>();
                 for(DataSnapshot country : dataSnapshot.getChildren()) {
-                    if(country.getValue() != null)
-                        bucketList.add(country.getValue().toString());
+                    //Add countries one by one to the ArrayList
+                    bucketList.add(Objects.requireNonNull(country.getValue()).toString());
                 }
-                mBucketListAdapter = new BucketListAdapter(bucketList, getActivity());
-                mRecyclerViewBucketList.setAdapter(mBucketListAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                //If the ArrayList is not empty, create the RecyclerView and Adapter to show Countries inside the Fragment
+                if(!bucketList.isEmpty()) {
+                    mBucketListAdapter = new BucketListAdapter(bucketList, getActivity());
+                    mRecyclerViewBucketList.setAdapter(mBucketListAdapter);
+                }
             }
         });
 

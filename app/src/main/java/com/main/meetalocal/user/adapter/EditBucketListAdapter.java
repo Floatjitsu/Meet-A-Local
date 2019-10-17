@@ -9,8 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,9 +23,7 @@ import com.main.meetalocal.R;
 import com.main.meetalocal.database.Authentication;
 import com.main.meetalocal.database.CountryModel;
 import com.main.meetalocal.database.Firebase;
-import com.main.meetalocal.user.viewmodel.BucketListViewModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EditBucketListAdapter extends RecyclerView.Adapter<EditBucketListAdapter.ViewHolder> {

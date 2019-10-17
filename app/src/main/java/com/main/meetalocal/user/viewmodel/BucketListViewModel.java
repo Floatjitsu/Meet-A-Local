@@ -1,58 +1,22 @@
 package com.main.meetalocal.user.viewmodel;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
-import com.main.meetalocal.database.room.BucketListCountry;
-import com.main.meetalocal.database.room.BucketListRepository;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.main.meetalocal.database.Authentication;
 
-import java.util.List;
+public class BucketListViewModel extends ViewModel {
 
-public class BucketListViewModel extends AndroidViewModel {
+    private static final DatabaseReference BUCKET_LIST_REF =
+            FirebaseDatabase.getInstance().getReference("bucketLists")
+                .child(new Authentication().getCurrentUserUid());
 
-    private BucketListRepository bucketListRepository;
-    private LiveData<List<BucketListCountry>> bucketList;
+    private final FirebaseQueryLiveData liveData = new FirebaseQueryLiveData(BUCKET_LIST_REF);
 
-    public BucketListViewModel(@NonNull Application application) {
-        super(application);
-        bucketListRepository = new BucketListRepository(application);
-        bucketList = bucketListRepository.getBucketList();
+    public LiveData<DataSnapshot> getDataSnapshotLiveData() {
+        return liveData;
     }
-
-    /**
-     * Get the whole bucket list for the current user
-     * @return the whole bucket list
-     */
-    public LiveData<List<BucketListCountry>> getBucketList() {
-        return bucketList;
-    }
-
-    /**
-     * Check if a country already exits in the users bucket List
-     * @param countryName the country which should get checked
-     * @return a live data object from the bucket list repository
-     */
-    public LiveData<Integer> countryCount(String countryName) {
-        return bucketListRepository.countryCount(countryName);
-    }
-
-    /**
-     * Insert a new country into the the users bucket list
-     * @param bucketListCountry the country which should get inserted
-     */
-    public void insert(BucketListCountry bucketListCountry) {
-        bucketListRepository.insert(bucketListCountry);
-    }
-
-    /**
-     * Delete a country from the users bucket list
-     * @param bucketListCountry the country which should get deleted
-     */
-    public void delete(BucketListCountry bucketListCountry) {
-        bucketListRepository.delete(bucketListCountry);
-    }
-
 }
