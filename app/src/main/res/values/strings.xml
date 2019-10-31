@@ -29,6 +29,7 @@
     <string name="navigation_drawer_menu_home">Home</string>
     <string name="navigation_drawer_menu_bucket_list">My Bucket List</string>
     <string name="navigation_drawer_menu_profile">Profile</string>
+    <string name="navigation_drawer_inbox_profile">Inbox</string>
     <string name="navigation_drawer_logout">Logout</string>
 
     <!-- Navigation Drawer Header Placeholders -->
