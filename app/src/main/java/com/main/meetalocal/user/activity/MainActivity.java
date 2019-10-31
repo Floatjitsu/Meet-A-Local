@@ -148,15 +148,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void setUserProfilePicture(CircleImageView userProfilePicture) {
-        Authentication authentication = new Authentication();
-        if(authentication.getCurrentUserPhotoUrl() != null) {
-            StorageReference profilePicRef = FirebaseStorage.getInstance().getReference().child("profile_pictures")
-                    .child(new Authentication().getCurrentUserPhotoUrl().toString());
-            GlideApp.with(this).load(profilePicRef).into(userProfilePicture);
-        }
-    }
-
     /**
      * Set up the Action Toolbar and set the menu icon as home indicator (left sided)
      */
